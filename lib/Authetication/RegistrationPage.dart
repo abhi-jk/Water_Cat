@@ -1,5 +1,6 @@
 import 'package:cwrdm/Authetication/SignInPage.dart';
 import 'package:flutter/material.dart';
+import '../database/auth.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
@@ -25,6 +26,24 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _addressLine2Controller = TextEditingController();
   final _addressLine1Controller = TextEditingController();
   final _nameController = TextEditingController();
+
+  //fn to validate form data and register user
+  void _registerUser(BuildContext context) async {
+    if (_formKey.currentState!.validate()) {
+      // If the form is valid, display a snackbar. In the real world, do registration
+      await addUserToDatabase(
+        name: _nameController.text,
+        email: _emailController.text,
+        line1: _addressLine1Controller.text,
+        line2: _addressLine2Controller.text,
+        city: _cityController.text,
+        pincode: _pinCodeController.text,
+        password: _passwordController.text,
+        context: context,
+
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +74,25 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your name';
+                        }
+                        return null;
+                      },
+                    ),
+                     SizedBox(height: 20),
+                    TextFormField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        labelText: 'Email ID',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your email';
+                        } else if (!value.contains('@') ||
+                            !value.endsWith('.com')) {
+                          return 'Please enter a valid email';
                         }
                         return null;
                       },
@@ -126,25 +164,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 20),
-                    TextFormField(
-                      controller: _emailController,
-                      decoration: InputDecoration(
-                        labelText: 'Email ID',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your email';
-                        } else if (!value.contains('@') ||
-                            !value.endsWith('.com')) {
-                          return 'Please enter a valid email';
-                        }
-                        return null;
-                      },
-                    ),
+                   
                     SizedBox(height: 20),
                     TextFormField(
                       controller: _passwordController,
@@ -196,10 +216,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         // Handle registration
                         if (_formKey.currentState!.validate()) {
                           // If the form is valid, display a snackbar. In the real world, do registration
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Registration successful')),
-                          );
+                          _registerUser(context);
                         }
                       },
                       child: const Text('Register'),
@@ -209,7 +226,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const SignInPage()),
+                              builder: (context) =>  SignInPage()),
                         );
                       },
                       child: const Text('Already have an account? Sign In'),

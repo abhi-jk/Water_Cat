@@ -1,8 +1,26 @@
 import 'package:cwrdm/Authetication/RegistrationPage.dart';
+import 'package:cwrdm/database/auth.dart';
 import 'package:flutter/material.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({Key? key}) : super(key: key);
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  SignInPage({Key? key}) : super(key: key);
+
+  void signIn(BuildContext context) {
+    String email = emailController.text;
+    String password = passwordController.text;
+
+    if (email.isNotEmpty && password.isNotEmpty) {
+      // Sign in with email and password
+      signInWithEmailAndPassword(email, password, context);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter email and password')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +36,9 @@ class SignInPage extends StatelessWidget {
                 const Text('Sign In',
                     style:
                         TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
-                SizedBox(height: 20), // Added a SizedBox
+                SizedBox(height: 20),
                 TextField(
+                  controller: emailController,
                   decoration: InputDecoration(
                     labelText: 'Email ID',
                     border: OutlineInputBorder(
@@ -27,8 +46,9 @@ class SignInPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 20), // Added a SizedBox
+                SizedBox(height: 20),
                 TextField(
+                  controller: passwordController,
                   obscureText: true,
                   decoration: InputDecoration(
                     labelText: 'Password',
@@ -37,13 +57,13 @@ class SignInPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 20), // Added a SizedBox
+                SizedBox(height: 20),
                 ElevatedButton(
                   style: ButtonStyle(
                     minimumSize: MaterialStateProperty.all(const Size(250, 50)),
                   ),
                   onPressed: () {
-                    // Handle sign in
+                    signIn(context);
                   },
                   child: const Text('Sign In'),
                 ),

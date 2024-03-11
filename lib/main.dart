@@ -1,7 +1,15 @@
+import 'package:cwrdm/Authetication/RegistrationPage.dart';
 import 'package:cwrdm/Authetication/SignInPage.dart';
+import 'package:cwrdm/firebase_options.dart';
+import 'package:cwrdm/pages/home.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main()async {
+   WidgetsFlutterBinding.ensureInitialized();
+   await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -16,7 +24,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SignInPage(),
+      routes: {
+        '/signIn': (context) =>  SignInPage(),
+        '/register': (context) => const RegistrationPage(),
+        '/home': (context) => const Home(),
+      },
+
+      home:  SignInPage(),
     );
   }
 }
