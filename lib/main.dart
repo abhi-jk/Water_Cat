@@ -1,7 +1,13 @@
 import 'package:cwrdm/Authetication/RegistrationPage.dart';
 import 'package:cwrdm/Authetication/SignInPage.dart';
 import 'package:cwrdm/firebase_options.dart';
+import 'package:cwrdm/pages/citizens_portal.dart';
+import 'package:cwrdm/pages/city_info.dart';
 import 'package:cwrdm/pages/home.dart';
+import 'package:cwrdm/pages/new_project.dart';
+import 'package:cwrdm/pages/notesPage.dart';
+import 'package:cwrdm/pages/queryPage.dart';
+import 'package:cwrdm/splashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -25,12 +31,17 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
+        '/project': (context) => const NewProjectPage(),
+        '/notes':(context) => NotesPage(),
+        '/queryPage': (context) => QueryPage(),
+        '/citizen':(context) => CitizenPortalPage(),
+        '/cityInfo': (context) =>  CityInfoPage(),
         '/signIn': (context) =>  SignInPage(),
         '/register': (context) => const RegistrationPage(),
         '/home': (context) => const Home(),
       },
 
-      home:  SignInPage(),
+      home: SplashScreen(),
     );
   }
 }

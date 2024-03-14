@@ -40,7 +40,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
         pincode: _pinCodeController.text,
         password: _passwordController.text,
         context: context,
-
       );
     }
   }
@@ -56,6 +55,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               width: MediaQuery.of(context).size.width * 0.8,
               child: Form(
                 key: _formKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -78,7 +78,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         return null;
                       },
                     ),
-                     SizedBox(height: 20),
+                    SizedBox(height: 20),
                     TextFormField(
                       controller: _emailController,
                       decoration: InputDecoration(
@@ -164,7 +164,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         return null;
                       },
                     ),
-                   
                     SizedBox(height: 20),
                     TextFormField(
                       controller: _passwordController,
@@ -223,11 +222,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>  SignInPage()),
-                        );
+                        Navigator.pushNamed(context, '/signIn');
                       },
                       child: const Text('Already have an account? Sign In'),
                     ),

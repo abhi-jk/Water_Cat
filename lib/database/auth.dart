@@ -21,23 +21,23 @@ Future<void> signInWithEmailAndPassword(
       Navigator.pushReplacementNamed(context, '/home');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-         SnackBar(
-          content:const Text('Please verify your email'),
-          action: SnackBarAction(
-            label: 'Resend',
-            onPressed: () {
-              user.user!.sendEmailVerification();
-            },
-          )
-        ),
+        SnackBar(
+            content: const Text('Please verify your email'),
+            action: SnackBarAction(
+              label: 'Resend',
+              onPressed: () {
+                user.user!.sendEmailVerification();
+              },
+            )),
       );
     }
   }).onError<FirebaseException>((error, stackTrace) {
     ScaffoldMessenger.of(context).showSnackBar(
-       SnackBar(
+      SnackBar(
         content: Text(error.code),
       ),
-    );});
+    );
+  });
 }
 
 Future<void> signOut(BuildContext context) async {
@@ -47,84 +47,69 @@ Future<void> signOut(BuildContext context) async {
   });
 }
 
-
-
 Future<void> resetPassword(String email, BuildContext context) async {
-  
-
-
-
-
   await _auth.sendPasswordResetEmail(email: email).then((value) {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content:const Text('Reset password email has been sent'),
+        content: const Text('Reset password email has been sent'),
       ),
     );
   }).onError<FirebaseException>((error, stackTrace) {
     ScaffoldMessenger.of(context).showSnackBar(
-       SnackBar(
+      SnackBar(
         content: Text(error.code),
       ),
     );
   });
 }
 
-
 //add user to database with values name, email, adress(line1,line2,city,pincode) all are required parameters and show snackbar on error
-Future<void> addUserToDatabase(
-  {
-    required String name,
-    required String email,
-    required String line1,
-    required String line2,
-    required String city,
-    required String pincode,
-    required BuildContext context,
-    required String password,
-  }
-)
-   async {
-
- await _auth
+Future<void> addUserToDatabase({
+  required String name,
+  required String email,
+  required String line1,
+  required String line2,
+  required String city,
+  required String pincode,
+  required BuildContext context,
+  required String password,
+}) async {
+  await _auth
       .createUserWithEmailAndPassword(
     email: email,
     password: password,
   )
       .then((user) {
-        
-
-  final ref = FirebaseDatabase.instance.ref().child('users');
-  if (user != null) {
-    ref.child(user.user!.uid).set({
-      'name': name,
-      'email': email,
-      'line1': line1,
-      'line2': line2,
-      'city': city,
-      'pincode': pincode,
-    }).onError<FirebaseException>((error, stackTrace) {
-      ScaffoldMessenger.of(context).showSnackBar(
-         SnackBar(
-          content: Text(error.message??"Error"),
-        ),
-      );
-    });
-  }
+    user.user!.updateDisplayName(name);
+    final ref = FirebaseDatabase.instance.ref().child('users');
+    if (user != null) {
+      ref.child(user.user!.uid).set({
+        'name': name,
+        'email': email,
+        'line1': line1,
+        'line2': line2,
+        'city': city,
+        'pincode': pincode,
+      }).onError<FirebaseException>((error, stackTrace) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(error.message ?? "Error"),
+          ),
+        );
+      });
+    }
     user.user!.sendEmailVerification();
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Success! Verification email has been sent'),
       ),
     );
-    Navigator.pushReplacementNamed(context, '/signIn');
+    Navigator.pushReplacementNamed(context, '/notes');
   }).onError<FirebaseException>((error, stackTrace) {
     ScaffoldMessenger.of(context).showSnackBar(
-       SnackBar(
+      SnackBar(
         content: Text(error.code),
       ),
     );
   });
-
-
 }
