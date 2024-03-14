@@ -44,41 +44,42 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCH7xHeeDN_kYpl3aIuVCSOGiZ737e94Q8',
-    appId: '1:77257738641:web:0f67cb410003478ad47230',
-    messagingSenderId: '77257738641',
-    projectId: 'watercat-ea665',
-    authDomain: 'watercat-ea665.firebaseapp.com',
-    databaseURL: 'https://watercat-ea665-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'watercat-ea665.appspot.com',
+    apiKey: 'AIzaSyA1qOhmdsFxwRxAMH0KHIroW1yN5eOD9Ec',
+    appId: '1:171516733719:web:3589dddb23ad3298722f52',
+    messagingSenderId: '171516733719',
+    projectId: 'cwrdm-9bb46',
+    authDomain: 'cwrdm-9bb46.firebaseapp.com',
+    databaseURL: 'https://cwrdm-9bb46-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'cwrdm-9bb46.appspot.com',
+    measurementId: 'G-L0EPMQ4JDF',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBXucbAbfvLJdnldFcwY7CRWlzSkHTTfjY',
-    appId: '1:77257738641:android:f249294bc2d40b3dd47230',
-    messagingSenderId: '77257738641',
-    projectId: 'watercat-ea665',
-    databaseURL: 'https://watercat-ea665-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'watercat-ea665.appspot.com',
+    apiKey: 'AIzaSyALb0_UKX57EqicAKf_HMXTCLlm426Cq-o',
+    appId: '1:171516733719:android:fced15594799f1b4722f52',
+    messagingSenderId: '171516733719',
+    projectId: 'cwrdm-9bb46',
+    databaseURL: 'https://cwrdm-9bb46-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'cwrdm-9bb46.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAeIXZfs1ips9xEztsSy4I6WAnjlVnNiCI',
-    appId: '1:77257738641:ios:4a9f6ad0fb12f568d47230',
-    messagingSenderId: '77257738641',
-    projectId: 'watercat-ea665',
-    databaseURL: 'https://watercat-ea665-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'watercat-ea665.appspot.com',
+    apiKey: 'AIzaSyA19eKqjpcpsuCNCx_nqr9MYpck_xVNgIg',
+    appId: '1:171516733719:ios:7a6269f2890a5cfb722f52',
+    messagingSenderId: '171516733719',
+    projectId: 'cwrdm-9bb46',
+    databaseURL: 'https://cwrdm-9bb46-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'cwrdm-9bb46.appspot.com',
     iosBundleId: 'com.example.cwrdm',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAeIXZfs1ips9xEztsSy4I6WAnjlVnNiCI',
-    appId: '1:77257738641:ios:51b305cdbac843b7d47230',
-    messagingSenderId: '77257738641',
-    projectId: 'watercat-ea665',
-    databaseURL: 'https://watercat-ea665-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'watercat-ea665.appspot.com',
+    apiKey: 'AIzaSyA19eKqjpcpsuCNCx_nqr9MYpck_xVNgIg',
+    appId: '1:171516733719:ios:00f3633ba0b1bad1722f52',
+    messagingSenderId: '171516733719',
+    projectId: 'cwrdm-9bb46',
+    databaseURL: 'https://cwrdm-9bb46-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'cwrdm-9bb46.appspot.com',
     iosBundleId: 'com.example.cwrdm.RunnerTests',
   );
 }

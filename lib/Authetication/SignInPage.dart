@@ -21,8 +21,7 @@ class _SignInPageState extends State<SignInPage> {
     if (email.isNotEmpty && password.isNotEmpty) {
       // Sign in with email and password
       signInWithEmailAndPassword(email, password, context);
-    }
-    else {
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please enter email and password')),
       );
@@ -86,6 +85,7 @@ class _SignInPageState extends State<SignInPage> {
                           MaterialStateProperty.all(const Size(250, 50)),
                     ),
                     onPressed: () {
+                      testDB();
                       _formKey.currentState!.validate();
                       signIn(context);
                     },

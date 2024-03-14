@@ -1,3 +1,4 @@
+import 'package:cwrdm/global.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -7,23 +8,42 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(Duration(seconds: 3), () {
+  void init() {
+    Future.delayed(const Duration(seconds: 3), () {
       navigateUser();
     });
   }
 
-navigateUser() async {
-  User? user = FirebaseAuth.instance.currentUser;
-
-  if (user != null && user.emailVerified) {
-    Navigator.pushReplacementNamed(context, '/home');
-  } else {
-    Navigator.pushReplacementNamed(context, '/signIn');
+  @override
+  void initState() {
+    super.initState();
+    init();
   }
-}
+
+  navigateUser() async {
+    print('here');
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    // bool isSignedIn = false;
+    await auth.authStateChanges().listen((User? user) {
+      currentUser = user;
+     
+      //  isSignedIn = true;
+      //   print('User: ${user!.email}');
+    });
+//check for user login ;
+    User? user = FirebaseAuth.instance.currentUser;
+    currentUser = user;
+    navigate();
+  }
+
+  void navigate() {
+    if (currentUser == null) {
+      Navigator.pushReplacementNamed(context, '/signIn');
+    } else {
+      print("User: ${currentUser!.email}  ");
+      Navigator.pushReplacementNamed(context, '/home');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,26 +59,26 @@ navigateUser() async {
               alignment: Alignment.center,
               child: Image.asset('assets/images/Logo.png'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            CircularProgressIndicator(
+            const CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(
-                  const Color.fromARGB(255, 137, 191, 235)),
+                  Color.fromARGB(255, 137, 191, 235)),
             ),
             Expanded(
               child: Container(),
             ),
-            Text(
+            const Text(
               'From',
               style: TextStyle(
                 fontSize: 15,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Text(
+            const Text(
               'KSCSTE-CWRDM',
               style: TextStyle(
                 fontSize: 20,

@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:cwrdm/Authetication/SignInPage.dart';
+import 'package:cwrdm/database/project.dart';
 import 'package:flutter/material.dart';
 import '../database/auth.dart';
+import 'package:image_picker/image_picker.dart';
 
 class NewProjectPage extends StatefulWidget {
   const NewProjectPage({Key? key}) : super(key: key);
@@ -27,6 +31,51 @@ class _NewProjectPageState extends State<NewProjectPage> {
   final _resClController = TextEditingController();
   final _waterlvlController = TextEditingController();
   final _remarkController = TextEditingController();
+  String filename = '';
+  XFile? imagefile;
+
+  void _submit(BuildContext context,) {
+    if (_formKey.currentState!.validate()) {
+      String name = _nameController.text;
+      String sampleDetails = _sampleDetailsController.text;
+      String location = _locationController.text;
+      String observation = _observationController.text;
+      String pH = _pHController.text;
+      String alkaline = _alkalineController.text;
+      String hardness = _hardnessController.text;
+      String chloride = _chlorideController.text;
+      String tds = _tdsController.text;
+      String iron = _ironController.text;
+      String ammonia = _ammoniaController.text;
+      String nitrate = _nitrateController.text;
+      String phosphate = _phosphateController.text;
+      String resCl = _resClController.text;
+      String waterlvl = _waterlvlController.text;
+      String remark = _remarkController.text;
+      
+      addNewProject(
+        projectName: name,
+        sampleDetails: sampleDetails,
+        location: location,
+        observation: observation,
+        pH: pH,
+        alkaline: alkaline,
+        hardness: hardness,
+        chloride: chloride,
+        tds: tds,
+        iron: iron,
+        ammonia: ammonia,
+        nitrate: nitrate,
+        phosphate: phosphate,
+        resCl: resCl,
+        waterlvl: waterlvl,
+        remark: remark,
+        context: context,
+        file: File(imagefile!.path),
+      );
+      print(imagefile!.path);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +96,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                       const Text('New Project',
                           style: TextStyle(
                               fontSize: 40, fontWeight: FontWeight.bold)),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _nameController,
                         decoration: InputDecoration(
@@ -63,7 +112,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _sampleDetailsController,
                         decoration: InputDecoration(
@@ -79,7 +128,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _locationController,
                         decoration: InputDecoration(
@@ -95,7 +144,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _observationController,
                         decoration: InputDecoration(
@@ -112,7 +161,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _pHController,
                         decoration: InputDecoration(
@@ -128,7 +177,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _alkalineController,
                         keyboardType: TextInputType.number,
@@ -147,7 +196,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _hardnessController,
                         keyboardType: TextInputType.number,
@@ -166,7 +215,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _chlorideController,
                         keyboardType: TextInputType.number,
@@ -185,7 +234,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _tdsController,
                         keyboardType: TextInputType.number,
@@ -204,7 +253,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _ironController,
                         keyboardType: TextInputType.number,
@@ -223,7 +272,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _ammoniaController,
                         keyboardType: TextInputType.number,
@@ -242,7 +291,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _nitrateController,
                         keyboardType: TextInputType.number,
@@ -261,7 +310,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _phosphateController,
                         keyboardType: TextInputType.number,
@@ -280,7 +329,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _resClController,
                         keyboardType: TextInputType.number,
@@ -299,7 +348,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _waterlvlController,
                         keyboardType: TextInputType.number,
@@ -318,7 +367,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
                         controller: _remarkController,
                         decoration: InputDecoration(
@@ -334,17 +383,44 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
+
+                      
+                      // add button to upload image
+                      TextButton(onPressed: () {}, child: ListTile(
+                        leading: const Icon(Icons.upload_file),
+                        title:  filename == '' ?const Text('Upload Image') : Text(filename),
+                        onTap: () async {
+                          final ImagePicker _picker = ImagePicker();
+                          final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+                          if (image != null) {
+                            setState(() {
+                              filename = image.path.split('/').last;
+                              imagefile = image;
+                            });
+                          }
+                        },
+                      )),
+                      const SizedBox(height: 20),
                       ElevatedButton(
                         style: ButtonStyle(
                           minimumSize:
                               MaterialStateProperty.all(const Size(250, 50)),
                         ),
                         onPressed: () {
-                          _formKey.currentState!.validate();
+                          if(filename==''){
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Please upload an image'),
+                              ),
+                            );
+                          }
+                          if (_formKey.currentState!.validate()&&filename!='') {
+                            _submit(context);
+                          }
                         },
                         child: const Text('Submit'),
                       ),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),

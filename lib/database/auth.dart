@@ -7,17 +7,31 @@ import '../global.dart';
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 // Sign in with email and password
+void testDB() {
+  final ref = FirebaseDatabase.instance.ref();
+  ref.child('test').set("Hello World");
+}
 
 Future<void> signInWithEmailAndPassword(
     String email, String password, BuildContext context) async {
+  //show laoding dialog
+  showDialog(
+    context: context,
+    builder: (context) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    },
+  );
   await _auth
       .signInWithEmailAndPassword(
     email: email,
     password: password,
   )
       .then((user) {
+    Navigator.pop(context);
     if (user.user!.emailVerified) {
-      currentUser = user;
+      currentUser = user.user;
       Navigator.pushReplacementNamed(context, '/home');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -42,6 +56,12 @@ Future<void> signInWithEmailAndPassword(
 
 Future<void> signOut(BuildContext context) async {
   await _auth.signOut().then((value) {
+    //show snack bar
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Sign out successful'),
+      ),
+    );
     currentUser = null;
     Navigator.pushReplacementNamed(context, '/signIn');
   });
@@ -74,6 +94,15 @@ Future<void> addUserToDatabase({
   required BuildContext context,
   required String password,
 }) async {
+  //show laoding dialog
+  showDialog(
+    context: context,
+    builder: (context) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    },
+  );
   await _auth
       .createUserWithEmailAndPassword(
     email: email,
@@ -91,6 +120,7 @@ Future<void> addUserToDatabase({
         'city': city,
         'pincode': pincode,
       }).onError<FirebaseException>((error, stackTrace) {
+        Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(error.message ?? "Error"),
@@ -99,6 +129,7 @@ Future<void> addUserToDatabase({
       });
     }
     user.user!.sendEmailVerification();
+    Navigator.pop(context);
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Success! Verification email has been sent'),

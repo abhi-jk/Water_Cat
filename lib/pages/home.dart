@@ -1,5 +1,4 @@
 import 'package:cwrdm/database/auth.dart';
-import 'package:cwrdm/global.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -15,13 +14,14 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
       ),
       drawer: Drawer(
         child: Column(
-          children: <Widget>[
+          children:[
             UserAccountsDrawerHeader(
               accountName: Text(user?.displayName ?? 'User Name'),
               accountEmail: Text(user?.email ?? 'user@example.com'),
@@ -56,15 +56,16 @@ class _HomeState extends State<Home> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(16.0),
-                    textStyle: const TextStyle(
-                        fontSize: 25, fontWeight: FontWeight.bold),
-                    minimumSize: Size(double.infinity, 70)),
+                  padding: const EdgeInsets.all(16.0),
+                  textStyle: const TextStyle(
+                      fontSize: 25, fontWeight: FontWeight.bold),
+                  minimumSize: Size(double.infinity, 70),
+                ),
                 onPressed: () {
                   Navigator.pushNamed(context, '/cityInfo');
                 },

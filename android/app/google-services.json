@@ -1,14 +1,14 @@
 {
   "project_info": {
-    "project_number": "77257738641",
-    "firebase_url": "https://watercat-ea665-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "project_id": "watercat-ea665",
-    "storage_bucket": "watercat-ea665.appspot.com"
+    "project_number": "171516733719",
+    "firebase_url": "https://cwrdm-9bb46-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "cwrdm-9bb46",
+    "storage_bucket": "cwrdm-9bb46.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:77257738641:android:f249294bc2d40b3dd47230",
+        "mobilesdk_app_id": "1:171516733719:android:fced15594799f1b4722f52",
         "android_client_info": {
           "package_name": "com.example.cwrdm"
         }
@@ -16,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBXucbAbfvLJdnldFcwY7CRWlzSkHTTfjY"
+          "current_key": "AIzaSyALb0_UKX57EqicAKf_HMXTCLlm426Cq-o"
         }
       ],
       "services": {
