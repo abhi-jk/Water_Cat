@@ -2,31 +2,18 @@ import 'package:cwrdm/Authetication/RegistrationPage.dart';
 import 'package:cwrdm/database/auth.dart';
 import 'package:flutter/material.dart';
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({Key? key}) : super(key: key);
+class AdminLogin extends StatefulWidget {
+  const AdminLogin({Key? key}) : super(key: key);
 
   @override
-  _SignInPageState createState() => _SignInPageState();
+  _AdminLoginState createState() => _AdminLoginState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _AdminLoginState extends State<AdminLogin> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController userController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  void signIn(BuildContext context) {
-    String email = emailController.text;
-    String password = passwordController.text;
-
-    if (email.isNotEmpty && password.isNotEmpty) {
-      // Sign in with email and password
-      signInWithEmailAndPassword(email, password, context);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter email and password')),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,21 +29,21 @@ class _SignInPageState extends State<SignInPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const Text('Sign In',
+                  const Text('Admin',
                       style:
                           TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
                   SizedBox(height: 20),
                   TextFormField(
-                    controller: emailController,
+                    controller: userController,
                     decoration: InputDecoration(
-                      labelText: 'Email ID',
+                      labelText: 'Username',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
+                        return 'Please enter your username';
                       }
                       return null;
                     },
@@ -85,27 +72,16 @@ class _SignInPageState extends State<SignInPage> {
                           MaterialStateProperty.all(const Size(250, 50)),
                     ),
                     onPressed: () {
-                      testDB();
                       _formKey.currentState!.validate();
-                      signIn(context);
+                      Navigator.pushReplacementNamed(context, '/adminPage');
                     },
-                    child: const Text('Sign In'),
+                    child: const Text('Login In'),
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RegistrationPage()),
-                      );
+                      Navigator.pushNamed(context, '/signIn');
                     },
-                    child: const Text('Don\'t have an account? Register'),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/admin');
-                    },
-                    child: const Text('Admin Login'),
+                    child: const Text('Go Back to SignIn'),
                   ),
                 ],
               ),

@@ -47,7 +47,9 @@ class _CitizenPortalPageState extends State<CitizenPortalPage> {
                       fontSize: 25, fontWeight: FontWeight.bold),
                   minimumSize: Size(double.infinity, 150),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/citizenObservation');
+                },
                 child: const Text(
                   'Citizens Observation Portal',
                   style: TextStyle(

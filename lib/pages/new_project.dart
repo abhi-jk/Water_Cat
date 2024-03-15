@@ -34,7 +34,9 @@ class _NewProjectPageState extends State<NewProjectPage> {
   String filename = '';
   XFile? imagefile;
 
-  void _submit(BuildContext context,) {
+  void _submit(
+    BuildContext context,
+  ) {
     if (_formKey.currentState!.validate()) {
       String name = _nameController.text;
       String sampleDetails = _sampleDetailsController.text;
@@ -52,7 +54,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
       String resCl = _resClController.text;
       String waterlvl = _waterlvlController.text;
       String remark = _remarkController.text;
-      
+
       addNewProject(
         projectName: name,
         sampleDetails: sampleDetails,
@@ -80,6 +82,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: Center(
           child: Padding(
@@ -384,22 +387,26 @@ class _NewProjectPageState extends State<NewProjectPage> {
                         },
                       ),
 
-                      
                       // add button to upload image
-                      TextButton(onPressed: () {}, child: ListTile(
-                        leading: const Icon(Icons.upload_file),
-                        title:  filename == '' ?const Text('Upload Image') : Text(filename),
-                        onTap: () async {
-                          final ImagePicker _picker = ImagePicker();
-                          final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-                          if (image != null) {
-                            setState(() {
-                              filename = image.path.split('/').last;
-                              imagefile = image;
-                            });
-                          }
-                        },
-                      )),
+                      TextButton(
+                          onPressed: () {},
+                          child: ListTile(
+                            leading: const Icon(Icons.upload_file),
+                            title: filename == ''
+                                ? const Text('Upload Image')
+                                : Text(filename),
+                            onTap: () async {
+                              final ImagePicker _picker = ImagePicker();
+                              final XFile? image = await _picker.pickImage(
+                                  source: ImageSource.gallery);
+                              if (image != null) {
+                                setState(() {
+                                  filename = image.path.split('/').last;
+                                  imagefile = image;
+                                });
+                              }
+                            },
+                          )),
                       const SizedBox(height: 20),
                       ElevatedButton(
                         style: ButtonStyle(
@@ -407,14 +414,15 @@ class _NewProjectPageState extends State<NewProjectPage> {
                               MaterialStateProperty.all(const Size(250, 50)),
                         ),
                         onPressed: () {
-                          if(filename==''){
+                          if (filename == '') {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Please upload an image'),
                               ),
                             );
                           }
-                          if (_formKey.currentState!.validate()&&filename!='') {
+                          if (_formKey.currentState!.validate() &&
+                              filename != '') {
                             _submit(context);
                           }
                         },
