@@ -1,6 +1,7 @@
 import 'package:cwrdm/Authetication/RegistrationPage.dart';
 import 'package:cwrdm/Authetication/SignInPage.dart';
 import 'package:cwrdm/Authetication/admin.dart';
+import 'package:cwrdm/database/queries.dart';
 import 'package:cwrdm/firebase_options.dart';
 import 'package:cwrdm/pages/admin.dart';
 import 'package:cwrdm/pages/admin_query.dart';
@@ -20,7 +21,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  
+  onQueryAdded();
+
   runApp(const MyApp());
 }
 
@@ -36,17 +38,17 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/citizenObservation': (context) =>  CitizensObservationPortal(), 
+        '/citizenObservation': (context) => CitizensObservationPortal(),
         '/project': (context) => const NewProjectPage(),
         '/notes': (context) => NotesPage(),
         '/queryPage': (context) => QueryPage(),
         '/citizen': (context) => CitizenPortalPage(),
         '/cityInfo': (context) => CityInfoPage(),
         '/signIn': (context) => const SignInPage(),
-        '/admin':(context) => const AdminLogin(),
+        '/admin': (context) => const AdminLogin(),
         '/register': (context) => const RegistrationPage(),
         '/home': (context) => const Home(),
-        '/splash': (context) =>  SplashScreen(),
+        '/splash': (context) => SplashScreen(),
         '/adminPage': (context) => AdminPage(),
         '/adminQuery': (context) => AdminQueryPage(),
       },
