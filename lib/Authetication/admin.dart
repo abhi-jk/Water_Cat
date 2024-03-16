@@ -14,7 +14,6 @@ class _AdminLoginState extends State<AdminLogin> {
   final TextEditingController userController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +72,7 @@ class _AdminLoginState extends State<AdminLogin> {
                     ),
                     onPressed: () {
                       _formKey.currentState!.validate();
-                      Navigator.pushReplacementNamed(context, '/adminPage');
+                      adminSignIn(userController.text,passwordController.text, context);
                     },
                     child: const Text('Login In'),
                   ),

@@ -46,6 +46,7 @@ Future<void> signInWithEmailAndPassword(
       );
     }
   }).onError<FirebaseException>((error, stackTrace) {
+    Navigator.pop(context);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(error.code),
@@ -143,4 +144,43 @@ Future<void> addUserToDatabase({
       ),
     );
   });
+}
+
+void adminSignIn(String email, String password, BuildContext context) async {
+  //show laoding dialog
+  showDialog(
+    context: context,
+    builder: (context) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    },
+  );
+  if (email == "gopalshibuofficial@gmail.com") {
+    await _auth
+        .signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    )
+        .then((user) {
+      Navigator.pop(context);
+
+      currentUser = user.user;
+      Navigator.pushReplacementNamed(context, '/adminPage');
+    }).onError<FirebaseException>((error, stackTrace) {
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(error.code),
+        ),
+      );
+    });
+  } else {
+    Navigator.pop(context);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Invalid Credentials'),
+      ),
+    );
+  }
 }
