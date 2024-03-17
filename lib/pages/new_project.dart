@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cwrdm/Authetication/SignInPage.dart';
 import 'package:cwrdm/database/project.dart';
+import 'package:cwrdm/global.dart';
 import 'package:cwrdm/pages/resultPage.dart';
 import 'package:flutter/material.dart';
 import '../database/auth.dart';
@@ -93,7 +94,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: Form(
                   key: _formKey,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -410,37 +411,29 @@ class _NewProjectPageState extends State<NewProjectPage> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => ResultsPage(
-                                    pH: _pHController.text == ''
-                                        ? 0
-                                        : double.parse(_pHController.text),
-                                    alkaline: _alkalineController.text == ''
-                                        ? 0
-                                        : double.parse(
-                                            _alkalineController.text),
-                                    hardness: _hardnessController.text == ''
-                                        ? 0
-                                        : double.parse(
-                                            _hardnessController.text),
-                                    chloride: _chlorideController.text == ''
-                                        ? 0
-                                        : double.parse(
-                                            _chlorideController.text),
-                                    tds: _tdsController.text == ''
-                                        ? 0
-                                        : double.parse(_tdsController.text),
-                                    iron: _ironController.text == ''
-                                        ? 0
-                                        : double.parse(_ironController.text),
-                                    ammonia: _ammoniaController.text == ''
-                                        ? 0
-                                        : double.parse(_ammoniaController.text),
-                                    nitrate: _nitrateController.text == ''
-                                        ? 0
-                                        : double.parse(_nitrateController.text),
-                                    resCl: _resClController.text == ''
-                                        ? 0
-                                        : double.parse(_resClController.text),
+                                  project: Project(
+                                  
+                                    projectName: _nameController.text,
+                                    sampleDetails: _sampleDetailsController.text,
+                                    location: _locationController.text,
+                                    observation: _observationController.text,
+                                    pH: _pHController.text,
+                                    alkaline: _alkalineController.text,
+                                    hardness: _hardnessController.text,
+                                    chloride: _chlorideController.text,
+                                    tds: _tdsController.text,
+                                    iron: _ironController.text,
+                                    ammonia: _ammoniaController.text,
+                                    nitrate: _nitrateController.text,
+                                    phosphate: _phosphateController.text,
+                                    resCl: _resClController.text,
+                                    waterlvl: _waterlvlController.text,
+                                    remark: _remarkController.text,
+                                    image: imagefile!.path,
+                                    auther: currentUser!.uid,
+                                    isApproved: 'false',
                                   ),
+                                  )
                                 ),
                               );
                             });

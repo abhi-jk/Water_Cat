@@ -1,3 +1,4 @@
+import 'package:cwrdm/database/project.dart';
 import 'package:cwrdm/database/queries.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -27,9 +28,10 @@ class _AdminQueryPageState extends State<AdminQueryPage> {
 
   TextEditingController replyController = TextEditingController();
   Widget build(BuildContext context) {
+    getUnapprovedProjects();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Queries'),
+        title: const Text('Admin Queries'),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -40,7 +42,7 @@ class _AdminQueryPageState extends State<AdminQueryPage> {
           });
         },
         child: queries.isEmpty
-            ? Center(child: Text('No Queries Yet'))
+            ? const Center(child: Text('No Queries Yet'))
             : ListView.builder(
                 itemCount: queries.length,
                 itemBuilder: (context, index) {
@@ -49,19 +51,19 @@ class _AdminQueryPageState extends State<AdminQueryPage> {
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     elevation: 10,
-                    margin: EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     child: ExpansionTile(
                       title: Text(queries[index].title,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold)),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('Description:',
+                          const Text('Description:',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold)),
                           Text(queries[index].description,
-                              style: TextStyle(fontSize: 16)),
+                              style: const TextStyle(fontSize: 16)),
                         ],
                       ),
                       trailing: Container(
@@ -73,12 +75,12 @@ class _AdminQueryPageState extends State<AdminQueryPage> {
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 2,
                               blurRadius: 7,
-                              offset: Offset(0, 3),
+                              offset: const Offset(0, 3),
                             ),
                           ],
                         ),
                         child: IconButton(
-                          icon: Icon(Icons.reply, color: Colors.white),
+                          icon: const Icon(Icons.reply, color: Colors.white),
                           onPressed: () {
                             showDialog(
                               context: context,
@@ -94,7 +96,7 @@ class _AdminQueryPageState extends State<AdminQueryPage> {
                                         borderRadius: BorderRadius.circular(
                                             20), // Rounded corners
                                       ),
-                                      title: Center(
+                                      title: const Center(
                                         child: Text(
                                           'Reply to Query',
                                           style: TextStyle(
@@ -123,13 +125,6 @@ class _AdminQueryPageState extends State<AdminQueryPage> {
                                       actions: <Widget>[
                                         Center(
                                           child: TextButton(
-                                            child: Text(
-                                              'Submit',
-                                              style: TextStyle(
-                                                color: Colors
-                                                    .white, // Change the color
-                                              ),
-                                            ),
                                             style: ButtonStyle(
                                               backgroundColor:
                                                   MaterialStateProperty.all(Colors
@@ -149,6 +144,13 @@ class _AdminQueryPageState extends State<AdminQueryPage> {
                                               queries.removeAt(index);
                                               setState(() {});
                                             },
+                                            child: const Text(
+                                              'Submit',
+                                              style: TextStyle(
+                                                color: Colors
+                                                    .white, // Change the color
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -162,7 +164,7 @@ class _AdminQueryPageState extends State<AdminQueryPage> {
                       ),
                       children: <Widget>[
                         ListTile(
-                          title: Text('Reply:',
+                          title: const Text('Reply:',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold)),
                           subtitle: Text(queries[index].reply.isEmpty
