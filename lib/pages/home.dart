@@ -33,6 +33,13 @@ class _HomeState extends State<Home> {
               ),
             ),
             ListTile(
+              leading: Icon(Icons.check_circle),
+              title: Text('Projects Submitted'),
+              onTap: () {
+                Navigator.pushNamed(context, '/projectsSubmitted');
+              },
+            ),
+            ListTile(
               leading: Icon(Icons.question_mark),
               title: Text('FAQ'),
               onTap: () {
@@ -44,6 +51,13 @@ class _HomeState extends State<Home> {
               title: Text('Sign Out'),
               onTap: () {
                 signOut(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.info),
+              title: Text('About Water Cat'),
+              onTap: () {
+                Navigator.pushNamed(context, '/about');
               },
             ),
           ],

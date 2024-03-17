@@ -193,9 +193,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the alkalinity';
-                          } else if (double.parse(value) < 0) {
+                          if (double.parse(value!) < 0) {
                             return 'Alkalinity cannot be negative';
                           }
                           return null;
@@ -212,9 +210,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the hardness';
-                          } else if (double.parse(value) < 0) {
+                          if (double.parse(value!) < 0) {
                             return 'hardness cannot be negative';
                           }
                           return null;
@@ -231,9 +227,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the chloride';
-                          } else if (double.parse(value) < 0) {
+                          if (double.parse(value!) < 0) {
                             return 'Chloride cannot be negative';
                           }
                           return null;
@@ -250,9 +244,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the TDS';
-                          } else if (double.parse(value) < 0) {
+                          if (double.parse(value!) < 0) {
                             return 'TDS cannot be negative';
                           }
                           return null;
@@ -269,9 +261,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the iron';
-                          } else if (double.parse(value) < 0) {
+                          if (double.parse(value!) < 0) {
                             return 'Iron cannot be negative';
                           }
                           return null;
@@ -288,9 +278,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the ammonia';
-                          } else if (double.parse(value) < 0) {
+                          if (double.parse(value!) < 0) {
                             return 'Ammonia cannot be negative';
                           }
                           return null;
@@ -307,9 +295,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the nitrate';
-                          } else if (double.parse(value) < 0) {
+                          if (double.parse(value!) < 0) {
                             return 'Nitrate cannot be negative';
                           }
                           return null;
@@ -326,9 +312,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the phosphate';
-                          } else if (double.parse(value) < 0) {
+                          if (double.parse(value!) < 0) {
                             return 'Phosphate cannot be negative';
                           }
                           return null;
@@ -345,9 +329,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the residual chlorine';
-                          } else if (double.parse(value) < 0) {
+                          if (double.parse(value!) < 0) {
                             return 'Residual Chlorine cannot be negative';
                           }
                           return null;
@@ -364,9 +346,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the water level';
-                          } else if (double.parse(value) < 0) {
+                          if (double.parse(value!) < 0) {
                             return 'Water level cannot be negative';
                           }
                           return null;

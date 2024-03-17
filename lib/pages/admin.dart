@@ -29,11 +29,27 @@ class AdminPage extends StatelessWidget {
                 Navigator.pushNamed(context, '/adminQuery');
               },
             ),
-            // ListTile(
-            //   leading: Icon(Icons.settings),
-            //   title: Text('Settings'),
-            //   onTap: () {},
-            // ),
+            ListTile(
+              leading: Icon(Icons.check_circle),
+              title: Text('Projects Submitted'),
+              onTap: () {
+                Navigator.pushNamed(context, '/submittedProjects');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.warning),
+              title: Text('Issues'),
+              onTap: () {
+                Navigator.pushNamed(context, '/adminIssues');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.nature),
+              title: Text('Bio-Diversity'),
+              onTap: () {
+                Navigator.pushNamed(context, '/adminBio');
+              },
+            ),
             ListTile(
               leading: Icon(Icons.logout),
               title: Text('Sign Out'),
@@ -86,38 +102,44 @@ class AdminPage extends StatelessWidget {
                         : {};
 
                     return Card(
-                      margin: EdgeInsets.all(8.0),
-                      child: ExpansionTile(
-                        title: Text('User Name: ${userData['name']}',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        children: projects.entries.map((entry) {
-                          Map<String, dynamic> projectData = entry.value is Map
-                              ? Map<String, dynamic>.from(entry.value as Map)
-                              : {};
+                        margin: EdgeInsets.all(8.0),
+                        child: projects.isNotEmpty
+                            ? ExpansionTile(
+                                title: Text('User Name: ${userData['name']}',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                                children: projects.entries.map((entry) {
+                                  Map<String, dynamic> projectData =
+                                      entry.value is Map
+                                          ? Map<String, dynamic>.from(
+                                              entry.value as Map)
+                                          : {};
 
-                          return ExpansionTile(
-                            title: Text('Project Name: ${entry.key}',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                            children: projectData.entries.map((dataEntry) {
-                              if (dataEntry.key == 'image') {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child:
-                                      Image.network(dataEntry.value.toString()),
-                                );
-                              } else {
-                                return ListTile(
-                                  title: Text('${dataEntry.key}:',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  subtitle: Text('${dataEntry.value}'),
-                                );
-                              }
-                            }).toList(),
-                          );
-                        }).toList(),
-                      ),
-                    );
+                                  return ExpansionTile(
+                                    title: Text('Project Name: ${entry.key}',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                    children:
+                                        projectData.entries.map((dataEntry) {
+                                      if (dataEntry.key == 'image') {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Image.network(
+                                              dataEntry.value.toString()),
+                                        );
+                                      } else {
+                                        return ListTile(
+                                          title: Text('${dataEntry.key}:',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold)),
+                                          subtitle: Text('${dataEntry.value}'),
+                                        );
+                                      }
+                                    }).toList(),
+                                  );
+                                }).toList(),
+                              )
+                            : Container());
                   },
                 ))
               ],
