@@ -3,6 +3,7 @@ import 'package:cwrdm/Authetication/SignInPage.dart';
 import 'package:cwrdm/Authetication/admin.dart';
 import 'package:cwrdm/database/queries.dart';
 import 'package:cwrdm/firebase_options.dart';
+import 'package:cwrdm/pages/FaqPage.dart';
 import 'package:cwrdm/pages/admin.dart';
 import 'package:cwrdm/pages/admin_query.dart';
 import 'package:cwrdm/pages/citizen_observation_portal.dart';
@@ -21,7 +22,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  onQueryAdded();
 
   runApp(const MyApp());
 }
@@ -33,11 +33,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'WATER CAT',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'Montserrat',
+        textTheme: const TextTheme(
+            bodyText1: TextStyle(fontFamily: 'Montserrat'),
+            bodyText2: TextStyle(fontFamily: 'Montserrat'),
+      ),
       ),
       routes: {
+        '/faq': (context) => FaqPage(),
         '/citizenObservation': (context) => CitizensObservationPortal(),
         '/project': (context) => const NewProjectPage(),
         '/notes': (context) => NotesPage(),

@@ -29,11 +29,11 @@ class AdminPage extends StatelessWidget {
                 Navigator.pushNamed(context, '/adminQuery');
               },
             ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-              onTap: () {},
-            ),
+            // ListTile(
+            //   leading: Icon(Icons.settings),
+            //   title: Text('Settings'),
+            //   onTap: () {},
+            // ),
             ListTile(
               leading: Icon(Icons.logout),
               title: Text('Sign Out'),

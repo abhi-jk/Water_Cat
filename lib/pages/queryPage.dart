@@ -16,14 +16,17 @@ class _QueryPageState extends State<QueryPage> {
   final TextEditingController _descriptionController = TextEditingController();
   List<Query> queries = [];
   void init() async {
-    queries = await getUserQueries();
-    setState(() {
-      
-    });
+    await getUserQueries().then((value) => setState(() {
+          queries = value;
+        }));
+    print(queries);
+    //setState(() {});
   }
+
   @override
   void initState() {
     super.initState();
+    init();
   }
 
   @override
@@ -32,7 +35,54 @@ class _QueryPageState extends State<QueryPage> {
         appBar: AppBar(
           title: Text('Connect with Experts'),
         ),
-        body: Center(child: Text('No Queries Yet')),
+        body: queries.isEmpty
+            ? Center(child: Text('No Queries Yet'))
+            : ListView.builder(
+                itemCount: queries.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    elevation: 10,
+                    margin: EdgeInsets.all(10),
+                    child: ExpansionTile(
+                      title: Text(queries[index].title,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text('Description:',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold)),
+                          Text(queries[index].description,
+                              style: TextStyle(fontSize: 16)),
+                        ],
+                      ),
+                      trailing: queries[index].reply.isEmpty
+                          ? Chip(
+                              label: Text('Pending',
+                                  style: TextStyle(color: Colors.white)),
+                              backgroundColor: Colors.orange)
+                          : Chip(
+                              label: Text('Replied',
+                                  style: TextStyle(color: Colors.white)),
+                              backgroundColor: Colors.green),
+                      children: <Widget>[
+                        ListTile(
+                          title: Text('Reply:',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold)),
+                          subtitle: Text(queries[index].reply.isEmpty
+                              ? 'No reply yet'
+                              : queries[index].reply),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () {
@@ -127,9 +177,7 @@ class _QueryPageState extends State<QueryPage> {
                                         content: Text('Query Submitted'),
                                       ),
                                     );
-                                    setState(() {
-                                      
-                                    });
+                                    setState(() {});
                                   }
                                 },
                               ),

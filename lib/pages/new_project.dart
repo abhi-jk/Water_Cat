@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cwrdm/Authetication/SignInPage.dart';
 import 'package:cwrdm/database/project.dart';
+import 'package:cwrdm/pages/resultPage.dart';
 import 'package:flutter/material.dart';
 import '../database/auth.dart';
 import 'package:image_picker/image_picker.dart';
@@ -34,9 +35,9 @@ class _NewProjectPageState extends State<NewProjectPage> {
   String filename = '';
   XFile? imagefile;
 
-  void _submit(
+  Future<void> _submit(
     BuildContext context,
-  ) {
+  ) async {
     if (_formKey.currentState!.validate()) {
       String name = _nameController.text;
       String sampleDetails = _sampleDetailsController.text;
@@ -55,7 +56,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
       String waterlvl = _waterlvlController.text;
       String remark = _remarkController.text;
 
-      addNewProject(
+      await addNewProject(
         projectName: name,
         sampleDetails: sampleDetails,
         location: location,
@@ -75,7 +76,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
         context: context,
         file: File(imagefile!.path),
       );
-      print(imagefile!.path);
+      // print(imagefile!.path);
     }
   }
 
@@ -167,6 +168,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                       const SizedBox(height: 20),
                       TextFormField(
                         controller: _pHController,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           labelText: 'PH',
                           border: OutlineInputBorder(
@@ -413,7 +415,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           minimumSize:
                               MaterialStateProperty.all(const Size(250, 50)),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           if (filename == '') {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -423,7 +425,45 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           }
                           if (_formKey.currentState!.validate() &&
                               filename != '') {
-                            _submit(context);
+                            await _submit(context).whenComplete(() {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ResultsPage(
+                                    pH: _pHController.text == ''
+                                        ? 0
+                                        : double.parse(_pHController.text),
+                                    alkaline: _alkalineController.text == ''
+                                        ? 0
+                                        : double.parse(
+                                            _alkalineController.text),
+                                    hardness: _hardnessController.text == ''
+                                        ? 0
+                                        : double.parse(
+                                            _hardnessController.text),
+                                    chloride: _chlorideController.text == ''
+                                        ? 0
+                                        : double.parse(
+                                            _chlorideController.text),
+                                    tds: _tdsController.text == ''
+                                        ? 0
+                                        : double.parse(_tdsController.text),
+                                    iron: _ironController.text == ''
+                                        ? 0
+                                        : double.parse(_ironController.text),
+                                    ammonia: _ammoniaController.text == ''
+                                        ? 0
+                                        : double.parse(_ammoniaController.text),
+                                    nitrate: _nitrateController.text == ''
+                                        ? 0
+                                        : double.parse(_nitrateController.text),
+                                    resCl: _resClController.text == ''
+                                        ? 0
+                                        : double.parse(_resClController.text),
+                                  ),
+                                ),
+                              );
+                            });
                           }
                         },
                         child: const Text('Submit'),

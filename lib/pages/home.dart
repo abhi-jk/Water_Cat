@@ -14,14 +14,13 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
       ),
       drawer: Drawer(
         child: Column(
-          children:[
+          children: [
             UserAccountsDrawerHeader(
               accountName: Text(user?.displayName ?? 'User Name'),
               accountEmail: Text(user?.email ?? 'user@example.com'),
@@ -34,14 +33,11 @@ class _HomeState extends State<Home> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home'),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-              onTap: () {},
+              leading: Icon(Icons.question_mark),
+              title: Text('FAQ'),
+              onTap: () {
+                Navigator.pushNamed(context, '/faq');
+              },
             ),
             ListTile(
               leading: Icon(Icons.logout),
@@ -63,7 +59,9 @@ class _HomeState extends State<Home> {
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(16.0),
                   textStyle: const TextStyle(
-                      fontSize: 25, fontWeight: FontWeight.bold),
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat'),
                   minimumSize: Size(double.infinity, 70),
                 ),
                 onPressed: () {
@@ -78,7 +76,9 @@ class _HomeState extends State<Home> {
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(16.0),
                   textStyle: const TextStyle(
-                      fontSize: 25, fontWeight: FontWeight.bold),
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat'),
                   minimumSize: Size(double.infinity, 70),
                 ),
                 onPressed: () {
@@ -93,7 +93,9 @@ class _HomeState extends State<Home> {
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(16.0),
                   textStyle: const TextStyle(
-                      fontSize: 25, fontWeight: FontWeight.bold),
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat'),
                   minimumSize: Size(double.infinity, 70),
                 ),
                 onPressed: () {

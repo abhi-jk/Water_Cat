@@ -45,7 +45,7 @@ Future<void> addNewProject(
       .child('projects');
   //final cloud = CloudF
   //check if the project name already exists
-  ref.child(projectName).once().then((DatabaseEvent snapshot) async {
+ await ref.child(projectName).once().then((DatabaseEvent snapshot) async {
     if (snapshot.snapshot.value != null) {
       //show snackbar
       Navigator.pop(context);
@@ -65,7 +65,7 @@ Future<void> addNewProject(
 
       if (uploadTask.state == TaskState.success) {
         final url = await firestoreRef.getDownloadURL();
-        ref.child(projectName).set({
+       await ref.child(projectName).set({
           'projectName': projectName,
           'sampleDetails': sampleDetails,
           'location': location,
@@ -90,7 +90,7 @@ Future<void> addNewProject(
               content: Text('Project added successfully'),
             ),
           );
-          Navigator.pushReplacementNamed(context, '/home');
+          // Navigator.pushReplacementNamed(context, '/home');
         }).onError<FirebaseException>((error, stackTrace) {
           Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(

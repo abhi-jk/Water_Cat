@@ -38,9 +38,9 @@ Future<List<Query>> getUserQueries() async {
       .child(currentUser!.uid)
       .child('queries')
       .once()
-      .then((DatabaseEvent event) {
+      .then((DatabaseEvent event) async {
     for (var element in event.snapshot.children) {
-      databaseReference
+      await databaseReference
           .child('queries')
           .child(element.key!)
           .once()
@@ -57,21 +57,21 @@ Future<List<Query>> getUserQueries() async {
   return queries;
 }
 
-void replyToQuery(String id, String reply) {
-  databaseReference.child('queries').child(id).update({'reply': reply});
+void replyToQuery(String id, String reply) async {
+  await databaseReference.child('queries').child(id).child('reply').set(reply);
+  print('replied $reply');
 }
 
-Future<List<Query>> getAdminQueries() {
+Future<List<Query>> getAdminQueries() async {
   List<Query> queries = [];
-  databaseReference.child('queries').once().then((DatabaseEvent event) {
+  await databaseReference.child('queries').once().then((DatabaseEvent event) {
     for (var element in event.snapshot.children) {
-      Query query = Query(
-          element.child('title').value.toString(),
+      Query query = Query(element.child('title').value.toString(),
           element.child('description').value.toString());
       query.id = element.key!;
       query.auther = element.child('auther').value.toString();
       query.reply = element.child('reply').value.toString();
-      if(query.reply.isNotEmpty){
+      if (query.reply.isEmpty) {
         queries.add(query);
       }
     }
@@ -79,46 +79,81 @@ Future<List<Query>> getAdminQueries() {
   return Future.value(queries);
 }
 
+void onQueryUpdated() async {
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+// initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
+  const AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings('@mipmap/ic_launcher');
+  final InitializationSettings initializationSettings = InitializationSettings(
+    android: initializationSettingsAndroid,
+  );
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      onDidReceiveNotificationResponse: (payload) async {
+    //dismiss notification
+    await flutterLocalNotificationsPlugin.cancel(0);
+  });
+  databaseReference.child('queries').onChildChanged.listen((event) async {
+    print(event.snapshot.value);
+    if (event.snapshot.child('auther').value.toString() == currentUser!.uid) {
+      const AndroidNotificationDetails androidNotificationDetails =
+          AndroidNotificationDetails(
+        'reply',
+        '...',
+        actions: <AndroidNotificationAction>[
+          //   AndroidNotificationAction('id_1', 'ok'),
+        ],
+      );
+      const NotificationDetails notificationDetails =
+          NotificationDetails(android: androidNotificationDetails);
 
+      await flutterLocalNotificationsPlugin.show(0, 'Got reply from Expert',
+          event.snapshot.child('reply').value.toString(), notificationDetails);
+    }
+  });
+}
 
-
-
-
-
-
-
-
+Future<String> getUsername(String uid) async {
+  String name = '';
+  return databaseReference.child('users').child(uid).once().then((event) async {
+    name = await event.snapshot.child('name').value.toString();
+    return name;
+  });
+}
 
 void onQueryAdded() async {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+      FlutterLocalNotificationsPlugin();
 // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
-const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
-final InitializationSettings initializationSettings = InitializationSettings(
-    android: initializationSettingsAndroid,);
-await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-    
-    onDidReceiveNotificationResponse: (payload) async {
-      //dismiss notification
-      await flutterLocalNotificationsPlugin.cancel(0);
-    }  );
-  databaseReference.child('queries').onChildChanged.listen((event)async {
-    print(event.snapshot.value);
-    if(event.snapshot.child('auther').value.toString() == currentUser!.uid){
-          const AndroidNotificationDetails androidNotificationDetails =
-      AndroidNotificationDetails(
-    'reply',
-    '...',
-    actions: <AndroidNotificationAction>[
-   //   AndroidNotificationAction('id_1', 'ok'),
-
-    ],
+  const AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings('@mipmap/ic_launcher');
+  final InitializationSettings initializationSettings = InitializationSettings(
+    android: initializationSettingsAndroid,
   );
-  const NotificationDetails notificationDetails =
-      NotificationDetails(android: androidNotificationDetails);
-  await flutterLocalNotificationsPlugin.show(
-      0,'Got reply from Expert', event.snapshot.child('reply').value.toString(), notificationDetails);
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      onDidReceiveNotificationResponse: (payload) async {
+    //dismiss notification
+    await flutterLocalNotificationsPlugin.cancel(0);
+  });
+
+  databaseReference.child('queries').onChildAdded.listen((event) async {
+    print(event.snapshot.value);
+    if (currentUser!.email == adminEmail &&
+        event.snapshot.child('reply').value.toString().isEmpty) {
+      const AndroidNotificationDetails androidNotificationDetails =
+          AndroidNotificationDetails(
+        'query',
+        '...',
+        actions: <AndroidNotificationAction>[
+          //   AndroidNotificationAction('id_1', 'ok'),
+        ],
+      );
+      const NotificationDetails notificationDetails =
+          NotificationDetails(android: androidNotificationDetails);
+      String username =
+          await getUsername(event.snapshot.child('auther').value.toString());
+      await flutterLocalNotificationsPlugin.show(0, 'New Query from $username',
+          event.snapshot.child('title').value.toString(), notificationDetails);
     }
   });
 }
