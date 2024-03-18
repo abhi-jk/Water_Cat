@@ -28,7 +28,7 @@ class _CitizenObservationPortalState extends State<CitizenObservationPortal> {
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Montserrat'),
-                    minimumSize: Size(double.infinity, 150)),
+                    minimumSize: Size(double.infinity, 100)),
                 onPressed: () {
                   Navigator.pushNamed(context, '/issues');
                 },
@@ -50,13 +50,82 @@ class _CitizenObservationPortalState extends State<CitizenObservationPortal> {
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Montserrat'),
-                  minimumSize: Size(double.infinity, 150),
+                  minimumSize: Size(double.infinity, 100),
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, '/diversity');
                 },
                 child: const Text(
                   'Report Biodiversity',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.all(16.0),
+                  textStyle: const TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat'),
+                  minimumSize: Size(double.infinity, 100),
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/floodlevel');
+                },
+                child: const Text(
+                  'Flood Level',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.all(16.0),
+                  textStyle: const TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat'),
+                  minimumSize: Size(double.infinity, 100),
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/groundwaterlevel');
+                },
+                child: const Text(
+                  'Water Level',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.all(16.0),
+                  textStyle: const TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat'),
+                  minimumSize: Size(double.infinity, 100),
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/rainfall');
+                },
+                child: const Text(
+                  'Rainfall',
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,

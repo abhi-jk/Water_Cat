@@ -1,33 +1,93 @@
 import 'dart:io';
-
+import 'package:http/http.dart' as http;
 import 'package:cwrdm/database/project.dart';
+import 'package:cwrdm/global.dart';
 import 'package:cwrdm/pages/resultPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_to_pdf/flutter_to_pdf.dart';
+import 'package:open_file/open_file.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
 
 class ProjectsSubmitted extends StatefulWidget {
-
-
   @override
   _ProjectsSubmittedState createState() => _ProjectsSubmittedState();
 }
 
-class _ProjectsSubmittedState extends State<ProjectsSubmitted> { 
-   var data;
+class _ProjectsSubmittedState extends State<ProjectsSubmitted> {
+  var data;
   void init() async {
     data = await rootBundle.load("assets/fonts/Montserrat-Regular.ttf");
   }
+
   @override
   void initState() {
     init();
     super.initState();
   }
+
+  Future<List<int>> generatePdf(Map<String, dynamic> projectData) async {
+    final pdf = pw.Document();
+
+    final imageUrl = projectData['image'] as String;
+    final response = await http.get(Uri.parse(imageUrl));
+    final imageTempDir = await getTemporaryDirectory();
+    final imageTempPath = imageTempDir.path + '/tempImage.jpg';
+    File imageTempFile = File(imageTempPath);
+    await imageTempFile.writeAsBytes(response.bodyBytes);
+
+    final image = pw.MemoryImage(
+      await imageTempFile.readAsBytes(),
+    );
+
+    pdf.addPage(
+      pw.Page(
+        build: (context) {
+          return pw.Padding(
+            padding: pw.EdgeInsets.all(10.0),
+            child: pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                pw.Center(
+                  child: pw.Text(
+                    'Project Report',
+                    style: pw.TextStyle(
+                        fontSize: 30, fontWeight: pw.FontWeight.bold),
+                  ),
+                ),
+                pw.SizedBox(height: 20),
+                pw.Center(
+                  child: pw.Image(image, width: 250, height: 250),
+                ),
+                pw.SizedBox(height: 20),
+                ...projectData.entries.map((entry) {
+                  if (entry.key == 'image')
+                    return pw.SizedBox
+                        .shrink(); // Don't display the image URL in the text
+                  return pw.Padding(
+                    padding: pw.EdgeInsets.only(bottom: 5.0),
+                    child: pw.Text(
+                      '${entry.key}: ${entry.value}',
+                      style: pw.TextStyle(
+                          fontSize: 20, fontWeight: pw.FontWeight.bold),
+                    ),
+                  );
+                }).toList(),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+
+    return pdf.save();
+  }
+
   @override
   Widget build(BuildContext context) {
     String? userId = FirebaseAuth.instance.currentUser?.uid;
@@ -89,64 +149,101 @@ class _ProjectsSubmittedState extends State<ProjectsSubmitted> {
                                     ? IconButton(
                                         icon: Icon(Icons.download),
                                         onPressed: () async {
-                                          Project project = Project(
-                                            projectName:
+                                          final projectData = {
+                                            'Auther': currentUser!.displayName!,
+                                            'Project Name':
                                                 projects.keys.elementAt(index),
-                                            isApproved:
-                                                projectData['isApproved'],
-                                            alkaline: projectData['alkaline'],
-                                            ammonia: projectData['ammonia'],
-                                            image: projectData['image'],
-                                            auther: projectData['auther'],
-                                            chloride: projectData['chloride'],
-                                            hardness: projectData['hardness'],
-                                            iron: projectData['iron'],
-                                            location: projectData['location'],
-                                            nitrate: projectData['nitrate'],
-                                            pH: projectData['pH'],
-                                            phosphate: projectData['phosphate'],
-                                            observation:
-                                                projectData['observation'],
-                                            remark: projectData['remark'],
-                                            resCl: projectData['resCl'],
-                                            tds: projectData['tds'],
-                                            sampleDetails:
-                                                projectData['sampleDetails'],
-                                            waterlvl: projectData['waterlvl'],
-                                          );
-                                          final pdf = pw.Document();
+                                            'Approval Status': 'Approved',
+                                            'Alkaline': projects.values
+                                                .elementAt(index)['alkaline'],
+                                            'Ammonia': projects.values
+                                                .elementAt(index)['ammonia'],
+                                            'image': projects.values
+                                                    .elementAt(index)['image']
+                                                as String,
+                                            'Chloride': projects.values
+                                                .elementAt(index)['chloride'],
+                                            'Hardness': projects.values
+                                                .elementAt(index)['hardness'],
+                                            'Iron': projects.values
+                                                .elementAt(index)['iron'],
+                                            'Location': projects.values
+                                                .elementAt(index)['location'],
+                                            'Nitrate': projects.values
+                                                .elementAt(index)['nitrate'],
+                                            'pH': projects.values
+                                                .elementAt(index)['pH'],
+                                            'Phosphate': projects.values
+                                                .elementAt(index)['phosphate'],
+                                            'Observation': projects.values
+                                                .elementAt(
+                                                    index)['observation'],
+                                            'Remark': projects.values
+                                                .elementAt(index)['remark'],
+                                            'Residula Chlorine': projects.values
+                                                .elementAt(index)['resCl'],
+                                            'TDS': projects.values
+                                                .elementAt(index)['tds'],
+                                            'Sample Details': projects.values
+                                                .elementAt(
+                                                    index)['sampleDetails'],
+                                            'Water Level': projects.values
+                                                .elementAt(index)['waterlvl'],
+                                          };
 
-                                          pdf.addPage(pw.Page(
-                                              pageFormat: PdfPageFormat.a4,
-                                              build: (pw.Context context) {
-                                                return result(project);
-                                              }));
+                                          showDialog(
+                                            context: context,
+                                            barrierDismissible: false,
+                                            builder: (BuildContext context) {
+                                              return Dialog(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20), // Dialog shape
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      15.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      CircularProgressIndicator(),
+                                                      SizedBox(
+                                                          width:
+                                                              25), // Add some space between the CircularProgressIndicator and the text
+                                                      Text(
+                                                        "Loading",
+                                                        style: TextStyle(
+                                                          fontSize:
+                                                              18, // Increase the font size
+                                                          fontWeight: FontWeight
+                                                              .bold, // Make the text bold
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+
+                                          final pdf = await generatePdf(
+                                              projectData); // Generate the PDF
                                           final path =
                                               await getDownloadsDirectory();
                                           final file = File(
                                               '${path!.path}/${projects.keys.elementAt(index)}.pdf');
-                                          await file.writeAsBytes(
-                                              await pdf.save()); // Page
+                                          await file.writeAsBytes(pdf);
 
-//                                           // create instance of ExportDelegate
-//                                           final ExportDelegate exportDelegate =
-//                                               ExportDelegate();
-
-// // export the frame to a PDF Document
-//                                           final pdf = await exportDelegate
-//                                               .exportToPdfDocument(
-
-//                                                   'someFrameId');
-//                                           pdf.save();
-
-// // export the frame to a PDF Page
-//                                           final page = await exportDelegate
-//                                               .exportToPdfPage('someFrameId');
-
-// // export the frame to a PDF Widget
-//                                           final widget = await exportDelegate
-//                                               .exportToPdfWidget('someFrameId');
-                                        })
+                                          if (await file.exists()) {
+                                            OpenFile.open(file.path);
+                                            Navigator.pop(context);
+                                          } else {
+                                            print('File does not exist');
+                                          }
+                                        },
+                                      )
                                     : null,
                             subtitle: Text(
                                 'status: ${projectData['isApproved'] == 'true' ? 'Approved' : 'Pending'}'),
@@ -197,13 +294,11 @@ class _ProjectsSubmittedState extends State<ProjectsSubmitted> {
     return pw.ListView(children: <pw.Widget>[
       pw.Container(
         child: pw.Text('pH',
-            style: pw.TextStyle(
-                fontWeight: pw.FontWeight.bold, font: myFont)),
+            style: pw.TextStyle(fontWeight: pw.FontWeight.bold, font: myFont)),
       ),
       pw.Container(
         child: pw.Text('User: ${project.pH}, Acceptable: (6.5-8.5)',
-            style: pw.TextStyle(
-                fontWeight: pw.FontWeight.bold, font: myFont)),
+            style: pw.TextStyle(fontWeight: pw.FontWeight.bold, font: myFont)),
       ),
     ]);
   }

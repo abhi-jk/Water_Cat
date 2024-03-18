@@ -108,7 +108,7 @@ class _CityInfoPageState extends State<CityInfoPage> {
                     ),
                   );
                 },
-                child: const Text('Ground Water Level'),
+                child: const Text('Ground Water Information'),
               ),
             ),
             Padding(
@@ -134,7 +134,7 @@ class _CityInfoPageState extends State<CityInfoPage> {
                     ),
                   );
                 },
-                child: const Text('Water Quality Data'),
+                child: const Text('Water Quality Information'),
               ),
             ),
             Padding(
