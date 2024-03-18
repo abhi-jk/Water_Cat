@@ -7,8 +7,11 @@ import 'package:cwrdm/pages/FaqPage.dart';
 import 'package:cwrdm/pages/about.dart';
 import 'package:cwrdm/pages/admin.dart';
 import 'package:cwrdm/pages/admin_bio.dart';
+import 'package:cwrdm/pages/admin_floodlevel.dart';
+import 'package:cwrdm/pages/admin_groundwater.dart';
 import 'package:cwrdm/pages/admin_issues.dart';
 import 'package:cwrdm/pages/admin_query.dart';
+import 'package:cwrdm/pages/admin_rainfall.dart';
 import 'package:cwrdm/pages/citizen_observation_portal.dart';
 import 'package:cwrdm/pages/citizens_portal.dart';
 import 'package:cwrdm/pages/city_info.dart';
@@ -77,6 +80,12 @@ class MyApp extends StatelessWidget {
         '/splash': (context) => SplashScreen(),
         '/adminPage': (context) => AdminPage(),
         '/adminQuery': (context) => AdminQueryPage(),
+        '/adminfloodLevels': (context) =>  AdminFloodLevelPage(),
+        '/admingroundwater': (context) =>  AdminGroundwaterPage(),
+        '/adminfloodlevels': (context) =>  AdminFloodLevelPage(),
+        '/adminrainfall': (context) =>  AdminRainfallPage(),
+
+        
       },
       initialRoute: '/splash',
     );

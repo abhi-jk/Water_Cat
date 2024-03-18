@@ -2,30 +2,24 @@ import 'package:cwrdm/database/service.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
-class AdminBioPage extends StatelessWidget {
-  // Dummy list of issues, replace with your actual data source
+class AdminGroundwaterPage extends StatelessWidget {
+  // Dummy list of groundwater levels, replace with your actual data source
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bio Diversity'),
+        title: Text('Groundwater Levels'),
       ),
       body: FutureBuilder<List<Map<String,String>>>(
-          future: getAdminBioDiversity(),
+          future: getAdminGroundWaterLevels(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
             } else if (snapshot.hasError) {
-
               return Text('Error: ${snapshot.error}');
-            
-            }else if(snapshot.data == null){
-              return const Center(child: Text('No Data Yet'));
-            }
-            
-             else {
+            } else {
               return snapshot.data!.isEmpty
-                  ? const Center(child: Text('No Issues Yet'))
+                  ? const Center(child: Text('No Groundwater Levels Yet'))
                   : ListView.builder(
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
@@ -55,7 +49,7 @@ class AdminBioPage extends StatelessWidget {
                               ListTile(
                                 title: Text('Submitted By: ${snapshot.data![index]['author']}'),
                               ),
-                              Image.network(snapshot.data![index]['image']!)
+                           //   Image.network(snapshot.data![index]['image']!)
                             ],
                           ),
                         );

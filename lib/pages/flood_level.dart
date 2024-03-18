@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:cwrdm/database/service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -138,7 +141,14 @@ class _FloodLevelState extends State<FloodLevel> {
                           minimumSize:
                               MaterialStateProperty.all(const Size(250, 50)),
                         ),
-                        onPressed: () async {},
+                        onPressed: () async {
+                          reportFloodLevel(
+                              description: _heightController.text,
+                              loc: _locationController.text,
+                              image: File(imagefile!.path ),
+
+                              context: context);
+                        },
                         child: const Text('Submit'),
                       ),
                       const SizedBox(height: 20),

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:cwrdm/database/service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -139,7 +142,11 @@ class _ReportBiodiversityPageState extends State<ReportBiodiversityPage> {
                               MaterialStateProperty.all(const Size(250, 50)),
                         ),
                         onPressed: () async {
-                          
+                          reportBiodiversity(
+                              description: _descController.text,
+                              loc: _locationController.text,
+                              image: File(imagefile!.path),
+                              context: context);
                         },
                         child: const Text('Submit'),
                       ),

@@ -51,6 +51,28 @@ class AdminPage extends StatelessWidget {
               },
             ),
             ListTile(
+              leading: Icon(Icons.flood),
+              title: Text('Flood Levels'),
+              onTap: () {
+                Navigator.pushNamed(context, '/adminfloodLevels');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.waves),
+              title: Text('Rainfall Levels'),
+              onTap: () {
+                Navigator.pushNamed(context, '/adminrainfall');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.water_drop),
+              title: Text('Ground Water Levels'),
+              onTap: () {
+                Navigator.pushNamed(context, '/admingroundwater');
+              },
+            ),
+            
+            ListTile(
               leading: Icon(Icons.logout),
               title: Text('Sign Out'),
               onTap: () {

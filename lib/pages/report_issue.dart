@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../database/service.dart';
 
 class ReportIssuePage extends StatefulWidget {
   const ReportIssuePage({Key? key}) : super(key: key);
@@ -114,7 +118,9 @@ class _ReportIssuePageState extends State<ReportIssuePage> {
                       ),
                       const SizedBox(height: 20),
                       TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            // image picker
+                          },
                           child: ListTile(
                             leading: const Icon(Icons.upload_file),
                             title: filename == ''
@@ -138,7 +144,14 @@ class _ReportIssuePageState extends State<ReportIssuePage> {
                           minimumSize:
                               MaterialStateProperty.all(const Size(250, 50)),
                         ),
-                        onPressed: () async {},
+                        onPressed: () async {
+                           await reportIssue(
+                              description: _descController.text,
+                              loc: _locationController.text,
+                              image:File(imagefile!.path),
+                              context: context
+                          );
+                        },
                         child: const Text('Submit'),
                       ),
                       const SizedBox(height: 20),

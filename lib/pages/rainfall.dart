@@ -1,3 +1,4 @@
+import 'package:cwrdm/database/service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -11,6 +12,7 @@ class Rainfall extends StatefulWidget {
 class _RainfallState extends State<Rainfall> {
   final _formKey = GlobalKey<FormState>();
   final _rainController = TextEditingController();
+  final _locationController = TextEditingController();
 
   // Future<void> _submit(
   //   BuildContext context,
@@ -94,12 +96,33 @@ class _RainfallState extends State<Rainfall> {
                         },
                       ),
                       const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _locationController,
+                        decoration: InputDecoration(
+                          labelText: 'Location',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the location';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 20),
                       ElevatedButton(
                         style: ButtonStyle(
                           minimumSize:
                               MaterialStateProperty.all(const Size(250, 50)),
                         ),
-                        onPressed: () async {},
+                        onPressed: () async {
+                          reportRainfall(
+                              description: _rainController.text,
+                              loc: _locationController.text,
+                              context: context);
+                        },
                         child: const Text('Submit'),
                       ),
                       const SizedBox(height: 20),
