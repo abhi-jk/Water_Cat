@@ -35,8 +35,8 @@ Future<void> signInWithEmailAndPassword(
     if (user.user!.emailVerified) {
       currentUser = user.user;
       onQueryUpdated();
-        onQueryAdded();
-        onAlert();
+
+      onAlert();
       Navigator.pushReplacementNamed(context, '/home');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -161,7 +161,7 @@ void adminSignIn(String email, String password, BuildContext context) async {
       );
     },
   );
-  if (email == "gopalshibuofficial@gmail.com") {
+  if (email == adminEmail) {
     await _auth
         .signInWithEmailAndPassword(
       email: email,
@@ -171,6 +171,7 @@ void adminSignIn(String email, String password, BuildContext context) async {
       Navigator.pop(context);
 
       currentUser = user.user;
+      onQueryAdded();
       Navigator.pushReplacementNamed(context, '/adminPage');
     }).onError<FirebaseException>((error, stackTrace) {
       Navigator.pop(context);

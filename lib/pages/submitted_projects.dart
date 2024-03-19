@@ -122,11 +122,21 @@ class _SubmittedProjectsPageState extends State<SubmittedProjectsPage> {
                                             TextButton(
                                                 onPressed: () {
                                                   approveProject(
-                                                      snapshot.data![index].auther,
-                                                      snapshot.data![index].projectName);
+                                                      snapshot
+                                                          .data![index].auther,
+                                                      snapshot.data![index]
+                                                          .projectName);
                                                   Navigator.of(context).pop();
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    const SnackBar(
+                                                      content: Text(
+                                                          'Project Approved'),
+                                                    ),
+                                                  );
                                                   setState(() {
-                                                    snapshot.data!.removeAt(index);
+                                                    snapshot.data!
+                                                        .removeAt(index);
                                                   });
                                                 },
                                                 child: const Text('Approve')),
@@ -138,12 +148,6 @@ class _SubmittedProjectsPageState extends State<SubmittedProjectsPage> {
                                       },
                                     );
                                     //show snack send to admin for approval
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                            'Project sent to admin for approval'),
-                                      ),
-                                    );  
                                   },
                                   child: Text('Approve'),
                                 ),

@@ -42,13 +42,14 @@ class _SplashScreenState extends State<SplashScreen> {
     if (currentUser == null) {
       Navigator.pushReplacementNamed(context, '/signIn');
     } else {
-      
+    
+
       print("User: ${currentUser!.email}  ");
-      if (currentUser!.email == adminEmail)
-        Navigator.pushReplacementNamed(context, '/adminPage');
-      else {
-        onQueryUpdated();
+      if (currentUser!.email == adminEmail) {
         onQueryAdded();
+        Navigator.pushReplacementNamed(context, '/adminPage');
+      } else {
+        onQueryUpdated();
         onAlert();
         Navigator.pushReplacementNamed(context, '/home');
       }
