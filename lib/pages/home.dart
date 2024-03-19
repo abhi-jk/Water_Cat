@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             UserAccountsDrawerHeader(
-              accountName: Text(user?.displayName ?? 'User Name'),
+              accountName: Text('Hi, ${user?.displayName ?? 'User Name'}'),
               accountEmail: Text(user?.email ?? 'user@example.com'),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.white,
@@ -44,6 +44,13 @@ class _HomeState extends State<Home> {
               title: Text('FAQ'),
               onTap: () {
                 Navigator.pushNamed(context, '/faq');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.notifications),
+              title: Text('Alerts'),
+              onTap: () {
+                Navigator.pushNamed(context, '/clientalert');
               },
             ),
             ListTile(

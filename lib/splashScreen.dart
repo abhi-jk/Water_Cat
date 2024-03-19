@@ -1,4 +1,5 @@
 import 'package:cwrdm/database/queries.dart';
+import 'package:cwrdm/database/service.dart';
 import 'package:cwrdm/global.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,7 +11,6 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   void init() {
-    
     Future.delayed(const Duration(seconds: 3), () {
       navigateUser();
     });
@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // bool isSignedIn = false;
     await auth.authStateChanges().listen((User? user) {
       currentUser = user;
-    
+
       //  isSignedIn = true;
       //   print('User: ${user!.email}');
     });
@@ -42,13 +42,16 @@ class _SplashScreenState extends State<SplashScreen> {
     if (currentUser == null) {
       Navigator.pushReplacementNamed(context, '/signIn');
     } else {
-          onQueryUpdated();
-          onQueryAdded();
+      
       print("User: ${currentUser!.email}  ");
       if (currentUser!.email == adminEmail)
         Navigator.pushReplacementNamed(context, '/adminPage');
-      else
+      else {
+        onQueryUpdated();
+        onQueryAdded();
+        onAlert();
         Navigator.pushReplacementNamed(context, '/home');
+      }
     }
   }
 

@@ -8,6 +8,8 @@ class AdminLogin extends StatefulWidget {
   _AdminLoginState createState() => _AdminLoginState();
 }
 
+bool _obscuretext = true;
+
 class _AdminLoginState extends State<AdminLogin> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController userController = TextEditingController();
@@ -48,11 +50,23 @@ class _AdminLoginState extends State<AdminLogin> {
                   SizedBox(height: 20),
                   TextFormField(
                     controller: passwordController,
-                    obscureText: true,
+                    obscureText: _obscuretext,
                     decoration: InputDecoration(
                       labelText: 'Password',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscuretext
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscuretext = !_obscuretext;
+                          });
+                        },
                       ),
                     ),
                     validator: (value) {

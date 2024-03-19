@@ -1,9 +1,9 @@
-
 import 'dart:io';
 import 'package:cwrdm/global.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 Future<String> getUserName(String id) {
   //get user name using ID
@@ -157,6 +157,7 @@ Future reportBiodiversity(
   //close loading dialog
   Navigator.pop(context);
 }
+
 Future<List<Map<String, String>>> getUserBioDiversity() async {
   List<Map<String, String>> list = [];
   await FirebaseDatabase.instance
@@ -195,7 +196,7 @@ Future<List<Map<String, String>>> getAdminBioDiversity() async {
       .then((value) async {
     for (DataSnapshot element in value.snapshot.children) {
       String name = await getUserName(element.child('author').value.toString());
-     // print('name is $name');
+      // print('name is $name');
       list.add(
         {
           'description': element.child('description').value.toString(),
@@ -256,6 +257,7 @@ Future reportFloodLevel(
   //close loading dialog
   Navigator.pop(context);
 }
+
 Future<List<Map<String, String>>> getUserFloodLevels() async {
   List<Map<String, String>> list = [];
   await FirebaseDatabase.instance
@@ -346,6 +348,7 @@ Future reportGroundWaterLevel(
   //close loading dialog
   Navigator.pop(context);
 }
+
 Future<List<Map<String, String>>> getUserGroundWaterLevels() async {
   List<Map<String, String>> list = [];
   await FirebaseDatabase.instance
@@ -435,6 +438,7 @@ Future reportRainfall(
   //close loading dialog
   Navigator.pop(context);
 }
+
 Future<List<Map<String, String>>> getUserRainfall() async {
   List<Map<String, String>> list = [];
   await FirebaseDatabase.instance
@@ -486,4 +490,69 @@ Future<List<Map<String, String>>> getAdminRainfall() async {
     print(list);
     return list;
   });
+}
+
+Future sendAlert(String msg, BuildContext context) async {
+  final ref = FirebaseDatabase.instance.ref().child('alerts');
+  ref.push().set({
+    'message': msg,
+    'date': //date in format dd-mm-yyyy
+        '${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}',
+  }).then((value) => ScaffoldMessenger.of(context)
+      .showSnackBar(const SnackBar(content: Text('Alert sent successfully'))));
+}
+
+Future<List<Map<String, String>>> getAlerts() async {
+  List<Map<String, String>> list = [];
+
+  return await FirebaseDatabase.instance
+      .ref()
+      .child('alerts')
+      .once()
+      .then((value) async {
+    for (DataSnapshot element in value.snapshot.children) {
+      list.add(
+        {
+          'message': element.child('message').value.toString(),
+          'date': element.child('date').value.toString(),
+        },
+      );
+    }
+    print(list);
+    return list;
+  });
+}
+
+void onAlert() async {
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+// initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
+  const AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings('@mipmap/ic_launcher');
+  final InitializationSettings initializationSettings = InitializationSettings(
+    android: initializationSettingsAndroid,
+  );
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      onDidReceiveNotificationResponse: (payload) async {
+    //dismiss notification
+    await flutterLocalNotificationsPlugin.cancel(0);
+  });
+  //listen for changes in the alerts and show notification
+  FirebaseDatabase.instance.ref().child('alerts').onChildAdded.listen((event) {
+    print(event.snapshot.value);
+    //show notification
+    flutterLocalNotificationsPlugin.show(
+        0,
+        'Alert',
+        event.snapshot.child('message').value.toString(),
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+            'channel id',
+            'channel name',
+            importance: Importance.max,
+            priority: Priority.high,
+          ),
+        ));
+  });
+
 }

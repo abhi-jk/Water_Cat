@@ -5,6 +5,7 @@ import 'package:cwrdm/firebase_options.dart';
 import 'package:cwrdm/pages/FaqPage.dart';
 import 'package:cwrdm/pages/about.dart';
 import 'package:cwrdm/pages/admin.dart';
+import 'package:cwrdm/pages/admin_alert.dart';
 import 'package:cwrdm/pages/admin_bio.dart';
 import 'package:cwrdm/pages/admin_floodlevel.dart';
 import 'package:cwrdm/pages/admin_groundwater.dart';
@@ -14,6 +15,7 @@ import 'package:cwrdm/pages/admin_rainfall.dart';
 import 'package:cwrdm/pages/citizen_observation_portal.dart';
 import 'package:cwrdm/pages/citizens_portal.dart';
 import 'package:cwrdm/pages/city_info.dart';
+import 'package:cwrdm/pages/client_alert.dart';
 import 'package:cwrdm/pages/flood_level.dart';
 import 'package:cwrdm/pages/ground_water_level.dart';
 import 'package:cwrdm/pages/home.dart';
@@ -83,6 +85,8 @@ class MyApp extends StatelessWidget {
         '/admingroundwater': (context) => AdminGroundwaterPage(),
         '/adminfloodlevels': (context) => AdminFloodLevelPage(),
         '/adminrainfall': (context) => AdminRainfallPage(),
+        '/adminalert': (context) => const AdminAlert(),
+        '/clientalert':(context) => ViewAlert(),
       },
       initialRoute: '/splash',
     );

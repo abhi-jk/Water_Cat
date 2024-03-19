@@ -27,7 +27,7 @@ class _SignInPageState extends State<SignInPage> {
       );
     }
   }
-
+  bool _obscureText = true; // Add this line
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,11 +63,19 @@ class _SignInPageState extends State<SignInPage> {
                   SizedBox(height: 20),
                   TextFormField(
                     controller: passwordController,
-                    obscureText: true,
+                    obscureText: _obscureText, // Add a boolean variable to toggle the visibility of the password
                     decoration: InputDecoration(
                       labelText: 'Password',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _obscureText = !_obscureText; // Toggle the value of _obscureText
+                          });
+                        },
+                        icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off), // Show different icons based on the value of _obscureText
                       ),
                     ),
                     validator: (value) {

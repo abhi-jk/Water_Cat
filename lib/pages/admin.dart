@@ -37,7 +37,7 @@ class AdminPage extends StatelessWidget {
         child: Column(
           children: [
             UserAccountsDrawerHeader(
-              accountName: Text('Admin'),
+              accountName: Text('Hi, Admin'),
               accountEmail: Text('${adminEmail}'),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.white,
@@ -84,7 +84,7 @@ class AdminPage extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.waves),
-              title: Text('Rainfall Levels'),
+              title: Text('Rainfall'),
               onTap: () {
                 Navigator.pushNamed(context, '/adminrainfall');
               },
@@ -94,6 +94,13 @@ class AdminPage extends StatelessWidget {
               title: Text('Ground Water Levels'),
               onTap: () {
                 Navigator.pushNamed(context, '/admingroundwater');
+              },
+            ),
+             ListTile(
+              leading: Icon(Icons.notifications_rounded),
+              title: Text('Send Alerts'),
+              onTap: () {
+                Navigator.pushNamed(context, '/adminalert');
               },
             ),
             ListTile(

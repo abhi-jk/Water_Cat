@@ -94,7 +94,7 @@ class AdminBioPage extends StatelessWidget {
                           margin: const EdgeInsets.all(10),
                           child: ExpansionTile(
                             title: Text(
-                              'Description: ${snapshot.data![index]['description']!}',
+                              'Bio-Diversity: ${snapshot.data![index]['description']!}',
                               style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),

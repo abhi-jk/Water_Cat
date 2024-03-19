@@ -1,3 +1,5 @@
+import 'package:cwrdm/database/queries.dart';
+import 'package:cwrdm/database/service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:firebase_database/firebase_database.dart';
@@ -32,6 +34,9 @@ Future<void> signInWithEmailAndPassword(
     Navigator.pop(context);
     if (user.user!.emailVerified) {
       currentUser = user.user;
+      onQueryUpdated();
+        onQueryAdded();
+        onAlert();
       Navigator.pushReplacementNamed(context, '/home');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

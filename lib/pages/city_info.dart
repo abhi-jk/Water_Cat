@@ -46,7 +46,7 @@ class _CityInfoPageState extends State<CityInfoPage> {
                         fontFamily: 'Montserrat'),
                     minimumSize: Size(double.infinity, 70)),
                 onPressed: () async {
-                  final pdfPath = await copyAsset('assets/DEMOGRAPHY_.pdf');
+                  final pdfPath = await copyAsset('assets/KOZHIKODE_CITY.pdf');
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -96,14 +96,9 @@ class _CityInfoPageState extends State<CityInfoPage> {
                   minimumSize: Size(double.infinity, 70),
                 ),
                 onPressed: () async {
-                  final pdfPath =
-                      await copyAsset('assets/Water_Quality_Kozhikode.pdf');
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PdfViewerPage(
-                        path: pdfPath,
-                      ),
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Coming Soon'),
                     ),
                   );
                 },
@@ -148,13 +143,9 @@ class _CityInfoPageState extends State<CityInfoPage> {
                   minimumSize: Size(double.infinity, 70),
                 ),
                 onPressed: () async {
-                  final pdfPath = await copyAsset('assets/CITY_PROFILE.pdf');
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PdfViewerPage(
-                        path: pdfPath,
-                      ),
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Coming Soon'),
                     ),
                   );
                 },

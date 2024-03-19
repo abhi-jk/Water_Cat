@@ -15,6 +15,9 @@ bool isNumeric(String s) {
   return double.tryParse(s) != null;
 }
 
+bool _obscurePassword = true;
+bool _obscureConfPassword = true;
+
 class _RegistrationPageState extends State<RegistrationPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
@@ -165,11 +168,23 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     SizedBox(height: 20),
                     TextFormField(
                       controller: _passwordController,
-                      obscureText: true,
+                      obscureText: _obscurePassword,
                       decoration: InputDecoration(
                         labelText: 'Password',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            });
+                          },
+                          child: Icon(
+                            _obscurePassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
                         ),
                       ),
                       validator: (value) {
@@ -187,11 +202,23 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     SizedBox(height: 20),
                     TextFormField(
                       controller: _confirmPasswordController,
-                      obscureText: true,
+                      obscureText: _obscureConfPassword,
                       decoration: InputDecoration(
                         labelText: 'Confirm Password',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _obscureConfPassword = !_obscureConfPassword;
+                            });
+                          },
+                          child: Icon(
+                            _obscureConfPassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
                         ),
                       ),
                       validator: (value) {
