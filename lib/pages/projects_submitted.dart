@@ -2,15 +2,11 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:cwrdm/database/project.dart';
 import 'package:cwrdm/global.dart';
-import 'package:cwrdm/pages/resultPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 import 'package:open_file/open_file.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
 
@@ -223,9 +219,8 @@ class _ProjectsSubmittedState extends State<ProjectsSubmitted> {
                                                       BorderRadius.circular(
                                                           20), // Dialog shape
                                                 ),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      15.0),
+                                                child: const Padding(
+                                                  padding: EdgeInsets.all(15.0),
                                                   child: Row(
                                                     mainAxisSize:
                                                         MainAxisSize.min,

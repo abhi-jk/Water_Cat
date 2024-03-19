@@ -1,4 +1,3 @@
-import 'package:cwrdm/Authetication/RegistrationPage.dart';
 import 'package:cwrdm/database/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +23,6 @@ class _AdminLoginState extends State<AdminLogin> {
             width: MediaQuery.of(context).size.width * 0.8,
             child: Form(
               key: _formKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -72,13 +70,14 @@ class _AdminLoginState extends State<AdminLogin> {
                     ),
                     onPressed: () {
                       _formKey.currentState!.validate();
-                      adminSignIn(userController.text,passwordController.text, context);
+                      adminSignIn(userController.text, passwordController.text,
+                          context);
                     },
                     child: const Text('Login In'),
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/signIn');
+                      Navigator.pushReplacementNamed(context, '/signIn');
                     },
                     child: const Text('Go Back to SignIn'),
                   ),

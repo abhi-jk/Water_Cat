@@ -1,4 +1,3 @@
-import 'package:cwrdm/Authetication/SignInPage.dart';
 import 'package:flutter/material.dart';
 import '../database/auth.dart';
 
@@ -55,7 +54,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
               width: MediaQuery.of(context).size.width * 0.8,
               child: Form(
                 key: _formKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -222,7 +220,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/signIn');
+                        Navigator.pushReplacementNamed(context, '/signIn');
                       },
                       child: const Text('Already have an account? Sign In'),
                     ),

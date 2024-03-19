@@ -3,7 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class AdminPage extends StatelessWidget {
-  Map<String, String> labels = {
+  final Map<String, String> labels = {
     'isApproved': 'Approval Status',
     'projectName': 'Project Name',
     'location': 'Location',
@@ -24,6 +24,8 @@ class AdminPage extends StatelessWidget {
     'image': 'Image',
     'auther': 'Auther',
   };
+
+  AdminPage({super.key});
 
   @override
   Widget build(BuildContext context) {

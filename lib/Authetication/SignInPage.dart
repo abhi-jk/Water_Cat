@@ -38,7 +38,6 @@ class _SignInPageState extends State<SignInPage> {
             width: MediaQuery.of(context).size.width * 0.8,
             child: Form(
               key: _formKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -91,6 +90,7 @@ class _SignInPageState extends State<SignInPage> {
                     },
                     child: const Text('Sign In'),
                   ),
+                  SizedBox(height: 20),
                   TextButton(
                     onPressed: () {
                       Navigator.pushReplacement(
@@ -103,7 +103,7 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/admin');
+                      Navigator.pushReplacementNamed(context, '/admin');
                     },
                     child: const Text('Admin Login'),
                   ),

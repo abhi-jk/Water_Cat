@@ -49,6 +49,7 @@ dependencies:
   pdf: ^3.10.8
   open_file: ^3.3.2
   http: ^1.2.1
+  package_info: ^2.0.2
 
 dev_dependencies:
   flutter_test:

@@ -1,12 +1,8 @@
 import 'dart:io';
-import 'dart:math';
-
-import 'package:cwrdm/Authetication/SignInPage.dart';
 import 'package:cwrdm/database/project.dart';
 import 'package:cwrdm/global.dart';
 import 'package:cwrdm/pages/resultPage.dart';
 import 'package:flutter/material.dart';
-import '../database/auth.dart';
 import 'package:image_picker/image_picker.dart';
 
 class NewProjectPage extends StatefulWidget {

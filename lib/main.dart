@@ -1,7 +1,6 @@
 import 'package:cwrdm/Authetication/RegistrationPage.dart';
 import 'package:cwrdm/Authetication/SignInPage.dart';
 import 'package:cwrdm/Authetication/admin.dart';
-import 'package:cwrdm/database/queries.dart';
 import 'package:cwrdm/firebase_options.dart';
 import 'package:cwrdm/pages/FaqPage.dart';
 import 'package:cwrdm/pages/about.dart';

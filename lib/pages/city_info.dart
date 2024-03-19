@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class CityInfoPage extends StatefulWidget {
   CityInfoPage({Key? key}) : super(key: key);
