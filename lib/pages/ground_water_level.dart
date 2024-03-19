@@ -120,10 +120,14 @@ class _GroundWaterState extends State<GroundWater> {
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             // await _submit(context);
-                            reportGroundWaterLevel(
+                            await reportGroundWaterLevel(
                                 description: _grndController.text,
                                 loc: _locationController.text,
                                 context: context);
+                            //clear the fields
+                            _grndController.clear();
+                            _locationController.clear();
+                            Navigator.pop(context);
                           }
                         },
                         child: const Text('Submit'),

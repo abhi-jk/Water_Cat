@@ -80,7 +80,10 @@ class FaqPage extends StatelessWidget {
     return RichText(
       text: TextSpan(
         style: DefaultTextStyle.of(context).style.copyWith(
-            fontSize: 16, height: 1.5, decoration: TextDecoration.none),
+            fontSize: 16,
+            height: 1.5,
+            decoration: TextDecoration.none,
+            fontFamily: 'Montserrat'),
         children: <TextSpan>[
           TextSpan(
             text: question + '\n',

@@ -68,7 +68,7 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(10.0),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(16.0),
@@ -76,7 +76,7 @@ class _HomeState extends State<Home> {
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Montserrat'),
-                  minimumSize: Size(double.infinity, 70),
+                  minimumSize: Size(double.infinity, 90),
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, '/cityInfo');
@@ -93,7 +93,7 @@ class _HomeState extends State<Home> {
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Montserrat'),
-                  minimumSize: Size(double.infinity, 70),
+                  minimumSize: Size(double.infinity, 90),
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, '/citizen');
@@ -110,7 +110,7 @@ class _HomeState extends State<Home> {
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Montserrat'),
-                  minimumSize: Size(double.infinity, 70),
+                  minimumSize: Size(double.infinity, 90),
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, '/queryPage');

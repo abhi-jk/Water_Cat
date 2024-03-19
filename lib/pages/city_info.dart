@@ -173,7 +173,14 @@ class _CityInfoPageState extends State<CityInfoPage> {
                       fontFamily: 'Montserrat'),
                   minimumSize: Size(double.infinity, 70),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  //snackbar
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Coming Soon'),
+                    ),
+                  );
+                },
                 child: const Text('Flood Prone Areas'),
               ),
             ),
@@ -188,7 +195,14 @@ class _CityInfoPageState extends State<CityInfoPage> {
                       fontFamily: 'Montserrat'),
                   minimumSize: Size(double.infinity, 70),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  //snackbar
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Coming Soon'),
+                    ),
+                  );
+                },
                 child: const Text('Water Stress Areas'),
               ),
             ),

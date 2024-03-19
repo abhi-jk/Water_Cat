@@ -62,6 +62,7 @@ class _RainfallState extends State<Rainfall> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(),
       body: SafeArea(
         child: Center(
@@ -72,7 +73,6 @@ class _RainfallState extends State<Rainfall> {
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: Form(
                   key: _formKey,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -114,18 +114,23 @@ class _RainfallState extends State<Rainfall> {
                       const SizedBox(height: 20),
                       ElevatedButton(
                         style: ButtonStyle(
-                          minimumSize:
-                              MaterialStateProperty.all(const Size(250, 50)),
+                          minimumSize: MaterialStateProperty.all(Size(
+                              MediaQuery.of(context).size.width * 0.6, 50)),
                         ),
                         onPressed: () async {
-                          reportRainfall(
+                          _formKey.currentState!.validate();
+                          await reportRainfall(
                               description: _rainController.text,
                               loc: _locationController.text,
                               context: context);
+                          //clear the fields
+                          _rainController.clear();
+                          _locationController.clear();
+                          Navigator.pop(context);
                         },
                         child: const Text('Submit'),
                       ),
-                      const SizedBox(height: 20),
+                      //const SizedBox(height: 20),
                     ],
                   ),
                 ),

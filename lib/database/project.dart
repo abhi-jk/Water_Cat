@@ -53,7 +53,6 @@ class Project {
 }
 
 Future<void> addNewProject(
-
     {required String projectName,
     required String sampleDetails,
     required String location,
@@ -71,7 +70,6 @@ Future<void> addNewProject(
     required String waterlvl,
     required String remark,
     required File file,
-
     required BuildContext context}) async {
   //show loading dialog
   showDialog(
@@ -131,11 +129,11 @@ Future<void> addNewProject(
           'image': url,
         }).whenComplete(() {
           Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Project send for approval'),
-            ),
-          );
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   const SnackBar(
+          //     content: Text('Project send for approval'),
+          //   ),
+          // );
           // Navigator.pushReplacementNamed(context, '/home');
         }).onError<FirebaseException>((error, stackTrace) {
           Navigator.pop(context);
@@ -165,13 +163,13 @@ Future<List<Project>> getUnapprovedProjects() async {
     final data = snapshot.snapshot.children;
     List<Project> projects = [];
     //print(data);
-    data.forEach((element) async{
+    data.forEach((element) async {
       final projectsData = element.child('projects');
-       projectsData.children.forEach((element) async {
+      projectsData.children.forEach((element) async {
         if (element.child('isApproved').value.toString() == 'false') {
           projects.add(Project(
             auther: element.child('auther').value.toString(),
-            projectName:  element.child('projectName').value.toString(),
+            projectName: element.child('projectName').value.toString(),
             sampleDetails: element.child('sampleDetails').value.toString(),
             location: element.child('location').value.toString(),
             observation: element.child('observation').value.toString(),
@@ -190,19 +188,16 @@ Future<List<Project>> getUnapprovedProjects() async {
             image: element.child('image').value.toString(),
             isApproved: element.child('isApproved').value.toString(),
           ));
-          
         }
-        
       });
     });
-    
+
     return projects;
   });
   return projectsList;
 }
 
-
-Future approveProject(String userId,String projectName) async {
+Future approveProject(String userId, String projectName) async {
   final ref = FirebaseDatabase.instance
       .ref()
       .child('users')
@@ -214,6 +209,4 @@ Future approveProject(String userId,String projectName) async {
   }).onError<FirebaseException>((error, stackTrace) {
     print(error.code);
   });
-
-
 }

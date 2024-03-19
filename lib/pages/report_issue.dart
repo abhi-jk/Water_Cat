@@ -77,7 +77,6 @@ class _ReportIssuePageState extends State<ReportIssuePage> {
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: Form(
                   key: _formKey,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -145,12 +144,27 @@ class _ReportIssuePageState extends State<ReportIssuePage> {
                               MaterialStateProperty.all(const Size(250, 50)),
                         ),
                         onPressed: () async {
-                           await reportIssue(
+                          _formKey.currentState!.validate();
+                          if (imagefile == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Please upload an image'),
+                              ),
+                            );
+                            return;
+                          }
+                          await reportIssue(
                               description: _descController.text,
                               loc: _locationController.text,
-                              image:File(imagefile!.path),
-                              context: context
-                          );
+                              image: File(imagefile!.path),
+                              context: context);
+                          //clear all the text fields
+                          _descController.clear();
+                          _locationController.clear();
+                          setState(() {
+                            filename = '';
+                          });
+                          Navigator.pop(context);
                         },
                         child: const Text('Submit'),
                       ),

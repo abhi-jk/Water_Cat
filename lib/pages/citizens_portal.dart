@@ -107,7 +107,7 @@ class _CitizenPortalPageState extends State<CitizenPortalPage> {
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Montserrat'),
-                    minimumSize: Size(double.infinity, 150)),
+                    minimumSize: Size(double.infinity, 100)),
                 onPressed: () async {
                   Navigator.pushNamed(context, '/project');
                   await showNoteOnce();
@@ -121,6 +121,7 @@ class _CitizenPortalPageState extends State<CitizenPortalPage> {
                 ),
               ),
             ),
+            SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
@@ -130,7 +131,7 @@ class _CitizenPortalPageState extends State<CitizenPortalPage> {
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Montserrat'),
-                  minimumSize: Size(double.infinity, 150),
+                  minimumSize: Size(double.infinity, 100),
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, '/citizenObservation');

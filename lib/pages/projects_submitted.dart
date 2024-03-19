@@ -88,6 +88,28 @@ class _ProjectsSubmittedState extends State<ProjectsSubmitted> {
     return pdf.save();
   }
 
+  Map<String, String> labels = {
+    'isApproved': 'Approval Status',
+    'projectName': 'Project Name',
+    'location': 'Location',
+    'sampleDetails': 'Sample Details',
+    'observation': 'Observation',
+    'pH': 'pH',
+    'alkaline': 'Alkaline',
+    'hardness': 'Hardness',
+    'chloride': 'Chloride',
+    'tds': 'TDS',
+    'iron': 'Iron',
+    'ammonia': 'Ammonia',
+    'nitrate': 'Nitrate',
+    'phosphate': 'Phosphate',
+    'resCl': 'Residual Chlorine',
+    'waterlvl': 'Water Level',
+    'remark': 'Remark',
+    'image': 'Image',
+    'auther': 'Auther',
+  };
+
   @override
   Widget build(BuildContext context) {
     String? userId = FirebaseAuth.instance.currentUser?.uid;
@@ -126,7 +148,7 @@ class _ProjectsSubmittedState extends State<ProjectsSubmitted> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'Projects submitted: ${projects.length}',
+                      'Projects Submitted: ${projects.length}',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
@@ -246,11 +268,13 @@ class _ProjectsSubmittedState extends State<ProjectsSubmitted> {
                                       )
                                     : null,
                             subtitle: Text(
-                                'status: ${projectData['isApproved'] == 'true' ? 'Approved' : 'Pending'}'),
+                                'Approval Status: ${projectData['isApproved'] == 'true' ? 'Approved' : 'Pending'}'),
                             title: Text(
                                 'Project Name: ${projects.keys.elementAt(index)}',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                             children: projectData.entries.map((dataEntry) {
+                              String label =
+                                  labels[dataEntry.key] ?? dataEntry.key;
                               if (dataEntry.key == 'image') {
                                 return Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -259,7 +283,7 @@ class _ProjectsSubmittedState extends State<ProjectsSubmitted> {
                                 );
                               } else if (dataEntry.key == 'isApproved') {
                                 return ListTile(
-                                  title: Text('${dataEntry.key}:',
+                                  title: Text('$label:',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold)),
                                   subtitle: Text(
@@ -267,7 +291,7 @@ class _ProjectsSubmittedState extends State<ProjectsSubmitted> {
                                 );
                               } else {
                                 return ListTile(
-                                  title: Text('${dataEntry.key}:',
+                                  title: Text('$label:',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold)),
                                   subtitle: Text('${dataEntry.value}'),

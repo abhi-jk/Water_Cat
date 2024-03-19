@@ -1,7 +1,30 @@
+import 'package:cwrdm/global.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class AdminPage extends StatelessWidget {
+  Map<String, String> labels = {
+    'isApproved': 'Approval Status',
+    'projectName': 'Project Name',
+    'location': 'Location',
+    'sampleDetails': 'Sample Details',
+    'observation': 'Observation',
+    'pH': 'pH',
+    'alkaline': 'Alkaline',
+    'hardness': 'Hardness',
+    'chloride': 'Chloride',
+    'tds': 'TDS',
+    'iron': 'Iron',
+    'ammonia': 'Ammonia',
+    'nitrate': 'Nitrate',
+    'phosphate': 'Phosphate',
+    'resCl': 'Residual Chlorine',
+    'waterlvl': 'Water Level',
+    'remark': 'Remark',
+    'image': 'Image',
+    'auther': 'Auther',
+  };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +36,7 @@ class AdminPage extends StatelessWidget {
           children: [
             UserAccountsDrawerHeader(
               accountName: Text('Admin'),
-              accountEmail: Text('admin@gmail.com'),
+              accountEmail: Text('${adminEmail}'),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.white,
                 child: Text(
@@ -71,7 +94,6 @@ class AdminPage extends StatelessWidget {
                 Navigator.pushNamed(context, '/admingroundwater');
               },
             ),
-            
             ListTile(
               leading: Icon(Icons.logout),
               title: Text('Sign Out'),
@@ -143,6 +165,8 @@ class AdminPage extends StatelessWidget {
                                             fontWeight: FontWeight.bold)),
                                     children:
                                         projectData.entries.map((dataEntry) {
+                                      String label = labels[dataEntry.key] ??
+                                          dataEntry.key;
                                       if (dataEntry.key == 'image') {
                                         return Padding(
                                           padding: const EdgeInsets.all(8.0),
@@ -151,7 +175,7 @@ class AdminPage extends StatelessWidget {
                                         );
                                       } else {
                                         return ListTile(
-                                          title: Text('${dataEntry.key}:',
+                                          title: Text('$label:',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold)),
                                           subtitle: Text('${dataEntry.value}'),

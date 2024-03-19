@@ -76,7 +76,6 @@ class _FloodLevelState extends State<FloodLevel> {
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: Form(
                   key: _formKey,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -142,12 +141,27 @@ class _FloodLevelState extends State<FloodLevel> {
                               MaterialStateProperty.all(const Size(250, 50)),
                         ),
                         onPressed: () async {
-                          reportFloodLevel(
+                          _formKey.currentState!.validate();
+                          if (imagefile == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Please upload an image'),
+                              ),
+                            );
+                            return;
+                          }
+                          await reportFloodLevel(
                               description: _heightController.text,
                               loc: _locationController.text,
-                              image: File(imagefile!.path ),
-
+                              image: File(imagefile!.path),
                               context: context);
+                          //clear the fields
+                          _heightController.clear();
+                          _locationController.clear();
+                          setState(() {
+                            filename = '';
+                          });
+                          Navigator.pop(context);
                         },
                         child: const Text('Submit'),
                       ),

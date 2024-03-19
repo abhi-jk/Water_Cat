@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:cwrdm/Authetication/SignInPage.dart';
 import 'package:cwrdm/database/project.dart';
@@ -94,7 +95,6 @@ class _NewProjectPageState extends State<NewProjectPage> {
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: Form(
                   key: _formKey,
-                  
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -178,7 +178,9 @@ class _NewProjectPageState extends State<NewProjectPage> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter the PH';
+                            return 'Please enter the PH or 0 if not available';
+                          } else if (double.parse(value) < 0) {
+                            return 'PH cannot be negative';
                           }
                           return null;
                         },
@@ -194,7 +196,9 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (double.parse(value!) < 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the alkalinity or 0 if not available';
+                          } else if (double.parse(value) < 0) {
                             return 'Alkalinity cannot be negative';
                           }
                           return null;
@@ -211,7 +215,9 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (double.parse(value!) < 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the hardness or 0 if not available';
+                          } else if (double.parse(value) < 0) {
                             return 'hardness cannot be negative';
                           }
                           return null;
@@ -228,7 +234,9 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (double.parse(value!) < 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the chloride or 0 if not available';
+                          } else if (double.parse(value) < 0) {
                             return 'Chloride cannot be negative';
                           }
                           return null;
@@ -245,7 +253,9 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (double.parse(value!) < 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the TDS or 0 if not available';
+                          } else if (double.parse(value) < 0) {
                             return 'TDS cannot be negative';
                           }
                           return null;
@@ -262,7 +272,9 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (double.parse(value!) < 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the iron or 0 if not available';
+                          } else if (double.parse(value) < 0) {
                             return 'Iron cannot be negative';
                           }
                           return null;
@@ -279,7 +291,9 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (double.parse(value!) < 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the ammonia or 0 if not available';
+                          } else if (double.parse(value) < 0) {
                             return 'Ammonia cannot be negative';
                           }
                           return null;
@@ -296,7 +310,9 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (double.parse(value!) < 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the nitrate or 0 if not available';
+                          } else if (double.parse(value) < 0) {
                             return 'Nitrate cannot be negative';
                           }
                           return null;
@@ -313,7 +329,9 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (double.parse(value!) < 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the phosphate or 0 if not available';
+                          } else if (double.parse(value) < 0) {
                             return 'Phosphate cannot be negative';
                           }
                           return null;
@@ -330,7 +348,9 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (double.parse(value!) < 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the residual chlorine or 0 if not available';
+                          } else if (double.parse(value) < 0) {
                             return 'Residual Chlorine cannot be negative';
                           }
                           return null;
@@ -347,7 +367,9 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           ),
                         ),
                         validator: (value) {
-                          if (double.parse(value!) < 0) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the water level or 0 if not available';
+                          } else if (double.parse(value) < 0) {
                             return 'Water level cannot be negative';
                           }
                           return null;
@@ -410,31 +432,32 @@ class _NewProjectPageState extends State<NewProjectPage> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ResultsPage(
-                                  project: Project(
-                                  
-                                    projectName: _nameController.text,
-                                    sampleDetails: _sampleDetailsController.text,
-                                    location: _locationController.text,
-                                    observation: _observationController.text,
-                                    pH: _pHController.text,
-                                    alkaline: _alkalineController.text,
-                                    hardness: _hardnessController.text,
-                                    chloride: _chlorideController.text,
-                                    tds: _tdsController.text,
-                                    iron: _ironController.text,
-                                    ammonia: _ammoniaController.text,
-                                    nitrate: _nitrateController.text,
-                                    phosphate: _phosphateController.text,
-                                    resCl: _resClController.text,
-                                    waterlvl: _waterlvlController.text,
-                                    remark: _remarkController.text,
-                                    image: imagefile!.path,
-                                    auther: currentUser!.uid,
-                                    isApproved: 'false',
-                                  ),
-                                  )
-                                ),
+                                    builder: (context) => ResultsPage(
+                                          project: Project(
+                                            projectName: _nameController.text,
+                                            sampleDetails:
+                                                _sampleDetailsController.text,
+                                            location: _locationController.text,
+                                            observation:
+                                                _observationController.text,
+                                            pH: _pHController.text,
+                                            alkaline: _alkalineController.text,
+                                            hardness: _hardnessController.text,
+                                            chloride: _chlorideController.text,
+                                            tds: _tdsController.text,
+                                            iron: _ironController.text,
+                                            ammonia: _ammoniaController.text,
+                                            nitrate: _nitrateController.text,
+                                            phosphate:
+                                                _phosphateController.text,
+                                            resCl: _resClController.text,
+                                            waterlvl: _waterlvlController.text,
+                                            remark: _remarkController.text,
+                                            image: imagefile!.path,
+                                            auther: currentUser!.uid,
+                                            isApproved: 'false',
+                                          ),
+                                        )),
                               );
                             });
                           }
