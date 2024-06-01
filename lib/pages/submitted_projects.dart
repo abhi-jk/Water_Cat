@@ -46,7 +46,7 @@ class _SubmittedProjectsPageState extends State<SubmittedProjectsPage> {
                                   Text(
                                       'Location: ${snapshot.data![index].location}'),
                                   Text(
-                                      'Sample Details: ${snapshot.data![index].sampleDetails}'),
+                                      'Sample Details: ${snapshot.data![index].sampleid}'),
                                   Text(
                                       'Observation: ${snapshot.data![index].observation}'),
                                 ],
@@ -75,26 +75,6 @@ class _SubmittedProjectsPageState extends State<SubmittedProjectsPage> {
                                 ListTile(
                                   title: Text(
                                       'Iron: ${snapshot.data![index].iron}'),
-                                ),
-                                ListTile(
-                                  title: Text(
-                                      'Ammonia: ${snapshot.data![index].ammonia}'),
-                                ),
-                                ListTile(
-                                  title: Text(
-                                      'Nitrate: ${snapshot.data![index].nitrate}'),
-                                ),
-                                ListTile(
-                                  title: Text(
-                                      'Phosphate: ${snapshot.data![index].phosphate}'),
-                                ),
-                                ListTile(
-                                  title: Text(
-                                      'Residual Chlorine: ${snapshot.data![index].resCl}'),
-                                ),
-                                ListTile(
-                                  title: Text(
-                                      'Water Level: ${snapshot.data![index].waterlvl}'),
                                 ),
                                 ListTile(
                                   title: Text(

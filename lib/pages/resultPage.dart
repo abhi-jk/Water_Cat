@@ -141,43 +141,6 @@ Widget build(BuildContext context) {
                     ? Colors.green
                     : Colors.red),
           ),
-        if (double.parse(project.ammonia) != 0.0)
-          ListTile(
-            title: const Text('Ammonia'),
-            subtitle: Text('User: ${project.ammonia}, Acceptable: (0.5 mg/L)'),
-            trailing: Icon(
-                double.parse(project.ammonia) <= 0.5
-                    ? Icons.check_circle
-                    : Icons.error,
-                color: double.parse(project.ammonia) <= 0.5
-                    ? Colors.green
-                    : Colors.red),
-          ),
-        if (double.parse(project.nitrate) != 0.0)
-          ListTile(
-            title: const Text('Nitrate'),
-            subtitle: Text('User: ${project.nitrate}, Acceptable: (45 mg/L)'),
-            trailing: Icon(
-                double.parse(project.nitrate) <= 45
-                    ? Icons.check_circle
-                    : Icons.error,
-                color: double.parse(project.nitrate) <= 45
-                    ? Colors.green
-                    : Colors.red),
-          ),
-        if (double.parse(project.resCl) != 0.0)
-          ListTile(
-            title: const Text('Residual Chlorine'),
-            subtitle:
-                Text('User: ${project.resCl}, Acceptable: (Min 0.2 mg/L)'),
-            trailing: Icon(
-                double.parse(project.resCl) >= 0.2
-                    ? Icons.check_circle
-                    : Icons.error,
-                color: double.parse(project.resCl) >= 0.2
-                    ? Colors.green
-                    : Colors.red),
-          ),
         if (project.isApproved == 'true')
           ElevatedButton(onPressed: () {}, child: Text('Download PDF'))
       ],

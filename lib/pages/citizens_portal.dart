@@ -113,7 +113,7 @@ class _CitizenPortalPageState extends State<CitizenPortalPage> {
                   await showNoteOnce();
                 },
                 child: const Text(
-                  'Start New Project',
+                  'Water Quality Analysis',
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,

@@ -15,7 +15,7 @@ class NewProjectPage extends StatefulWidget {
 class _NewProjectPageState extends State<NewProjectPage> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  final _sampleDetailsController = TextEditingController();
+  final _sampleidController = TextEditingController();
   final _locationController = TextEditingController();
   final _observationController = TextEditingController();
   final _pHController = TextEditingController();
@@ -24,11 +24,10 @@ class _NewProjectPageState extends State<NewProjectPage> {
   final _chlorideController = TextEditingController();
   final _tdsController = TextEditingController();
   final _ironController = TextEditingController();
-  final _ammoniaController = TextEditingController();
-  final _nitrateController = TextEditingController();
-  final _phosphateController = TextEditingController();
-  final _resClController = TextEditingController();
-  final _waterlvlController = TextEditingController();
+  final _descController = TextEditingController();
+  final _particularController = TextEditingController();
+  final _dateController = TextEditingController();
+  final _coliformsController = TextEditingController();
   final _remarkController = TextEditingController();
   String filename = '';
   XFile? imagefile;
@@ -38,7 +37,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
   ) async {
     if (_formKey.currentState!.validate()) {
       String name = _nameController.text;
-      String sampleDetails = _sampleDetailsController.text;
+      String sampleId = _sampleidController.text;
       String location = _locationController.text;
       String observation = _observationController.text;
       String pH = _pHController.text;
@@ -47,16 +46,18 @@ class _NewProjectPageState extends State<NewProjectPage> {
       String chloride = _chlorideController.text;
       String tds = _tdsController.text;
       String iron = _ironController.text;
-      String ammonia = _ammoniaController.text;
-      String nitrate = _nitrateController.text;
-      String phosphate = _phosphateController.text;
-      String resCl = _resClController.text;
-      String waterlvl = _waterlvlController.text;
       String remark = _remarkController.text;
+      String sampleDesc = _descController.text;
+      String particular = _particularController.text;
+      String date = _dateController.text;
+      String coliforms = _coliformsController.text;
 
       await addNewProject(
         projectName: name,
-        sampleDetails: sampleDetails,
+        sampleid: sampleId,
+        sampleDesc: sampleDesc,
+        particular: particular,
+        date: date,
         location: location,
         observation: observation,
         pH: pH,
@@ -65,11 +66,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
         chloride: chloride,
         tds: tds,
         iron: iron,
-        ammonia: ammonia,
-        nitrate: nitrate,
-        phosphate: phosphate,
-        resCl: resCl,
-        waterlvl: waterlvl,
+        coliforms: coliforms,
         remark: remark,
         context: context,
         file: File(imagefile!.path),
@@ -115,16 +112,65 @@ class _NewProjectPageState extends State<NewProjectPage> {
                       ),
                       const SizedBox(height: 20),
                       TextFormField(
-                        controller: _sampleDetailsController,
+                        controller: _sampleidController,
                         decoration: InputDecoration(
-                          labelText: 'Sample details',
+                          labelText: 'Sample ID',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter the details';
+                            return 'Please enter the id';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _descController,
+                        decoration: InputDecoration(
+                          labelText: 'Sample Description',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the descrtiption';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _particularController,
+                        decoration: InputDecoration(
+                          labelText: 'Particular of the Sample',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the particular of the sample';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _dateController,
+                        keyboardType: TextInputType.datetime,
+                        decoration: InputDecoration(
+                          labelText: 'Date of Analysis',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter the date of analysis';
                           }
                           return null;
                         },
@@ -278,95 +324,16 @@ class _NewProjectPageState extends State<NewProjectPage> {
                       ),
                       const SizedBox(height: 20),
                       TextFormField(
-                        controller: _ammoniaController,
-                        keyboardType: TextInputType.number,
+                        controller: _coliformsController,
                         decoration: InputDecoration(
-                          labelText: 'Ammonia(mg/L)',
+                          labelText: 'Coliforms',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter the ammonia or 0 if not available';
-                          } else if (double.parse(value) < 0) {
-                            return 'Ammonia cannot be negative';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        controller: _nitrateController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: 'Nitrate(mg/L)',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the nitrate or 0 if not available';
-                          } else if (double.parse(value) < 0) {
-                            return 'Nitrate cannot be negative';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        controller: _phosphateController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: 'Phosphate(mg/L)',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the phosphate or 0 if not available';
-                          } else if (double.parse(value) < 0) {
-                            return 'Phosphate cannot be negative';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        controller: _resClController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: 'Residual Chlorine(mg/L)',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the residual chlorine or 0 if not available';
-                          } else if (double.parse(value) < 0) {
-                            return 'Residual Chlorine cannot be negative';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        controller: _waterlvlController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: 'Water Level(m)',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the water level or 0 if not available';
-                          } else if (double.parse(value) < 0) {
-                            return 'Water level cannot be negative';
+                            return 'Please enter the coliforms';
                           }
                           return null;
                         },
@@ -431,8 +398,11 @@ class _NewProjectPageState extends State<NewProjectPage> {
                                     builder: (context) => ResultsPage(
                                           project: Project(
                                             projectName: _nameController.text,
-                                            sampleDetails:
-                                                _sampleDetailsController.text,
+                                            sampleid:
+                                                _sampleidController.text,
+                                            sampleDesc: _descController.text,
+                                            particular: _particularController.text,
+                                            date: _dateController.text,
                                             location: _locationController.text,
                                             observation:
                                                 _observationController.text,
@@ -442,12 +412,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                                             chloride: _chlorideController.text,
                                             tds: _tdsController.text,
                                             iron: _ironController.text,
-                                            ammonia: _ammoniaController.text,
-                                            nitrate: _nitrateController.text,
-                                            phosphate:
-                                                _phosphateController.text,
-                                            resCl: _resClController.text,
-                                            waterlvl: _waterlvlController.text,
+                                            coliforms: _coliformsController.text,
                                             remark: _remarkController.text,
                                             image: imagefile!.path,
                                             auther: currentUser!.uid,

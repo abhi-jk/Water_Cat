@@ -86,7 +86,7 @@ class MyApp extends StatelessWidget {
         '/adminfloodlevels': (context) => AdminFloodLevelPage(),
         '/adminrainfall': (context) => AdminRainfallPage(),
         '/adminalert': (context) => const AdminAlert(),
-        '/clientalert':(context) => ViewAlert(),
+        '/clientalert': (context) => ViewAlert(),
       },
       initialRoute: '/splash',
     );

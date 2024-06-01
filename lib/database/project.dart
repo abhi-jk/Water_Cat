@@ -9,7 +9,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Project {
   final String projectName;
-  final String sampleDetails;
+  final String sampleid;
+  final String sampleDesc;
+  final String particular;
+  final String date;
   final String location;
   final String observation;
   final String pH;
@@ -18,11 +21,7 @@ class Project {
   final String chloride;
   final String tds;
   final String iron;
-  final String ammonia;
-  final String nitrate;
-  final String phosphate;
-  final String resCl;
-  final String waterlvl;
+  final String coliforms;
   final String remark;
   final String image;
   final String auther;
@@ -30,7 +29,10 @@ class Project {
 
   Project({
     required this.projectName,
-    required this.sampleDetails,
+    required this.sampleid,
+    required this.sampleDesc,
+    required this.particular,
+    required this.date,
     required this.location,
     required this.observation,
     required this.pH,
@@ -39,11 +41,7 @@ class Project {
     required this.chloride,
     required this.tds,
     required this.iron,
-    required this.ammonia,
-    required this.nitrate,
-    required this.phosphate,
-    required this.resCl,
-    required this.waterlvl,
+    required this.coliforms,
     required this.remark,
     required this.image,
     required this.auther,
@@ -53,7 +51,10 @@ class Project {
 
 Future<void> addNewProject(
     {required String projectName,
-    required String sampleDetails,
+    required String sampleid,
+    required String sampleDesc,
+    required String particular,
+    required String date,
     required String location,
     required String observation,
     required String pH,
@@ -62,11 +63,7 @@ Future<void> addNewProject(
     required String chloride,
     required String tds,
     required String iron,
-    required String ammonia,
-    required String nitrate,
-    required String phosphate,
-    required String resCl,
-    required String waterlvl,
+    required String coliforms,
     required String remark,
     required File file,
     required BuildContext context}) async {
@@ -110,7 +107,10 @@ Future<void> addNewProject(
           'projectName': projectName,
           'auther': currentUser!.uid,
           'isApproved': 'false', //default value
-          'sampleDetails': sampleDetails,
+          'sampleid': sampleid,
+          'sampleDesc': sampleDesc,
+          'particular': particular,
+          'date': date,
           'location': location,
           'observation': observation,
           'pH': pH,
@@ -119,11 +119,7 @@ Future<void> addNewProject(
           'chloride': chloride,
           'tds': tds,
           'iron': iron,
-          'ammonia': ammonia,
-          'nitrate': nitrate,
-          'phosphate': phosphate,
-          'resCl': resCl,
-          'waterlvl': waterlvl,
+          'coliforms': coliforms,
           'remark': remark,
           'image': url,
         }).whenComplete(() {
@@ -169,7 +165,10 @@ Future<List<Project>> getUnapprovedProjects() async {
           projects.add(Project(
             auther: element.child('auther').value.toString(),
             projectName: element.child('projectName').value.toString(),
-            sampleDetails: element.child('sampleDetails').value.toString(),
+            sampleid: element.child('sampleDetails').value.toString(),
+            sampleDesc: element.child('sampleDesc').value.toString(),
+            particular: element.child('particular').value.toString(),
+            date: element.child('date').value.toString(),
             location: element.child('location').value.toString(),
             observation: element.child('observation').value.toString(),
             pH: element.child('pH').value.toString(),
@@ -178,11 +177,7 @@ Future<List<Project>> getUnapprovedProjects() async {
             chloride: element.child('chloride').value.toString(),
             tds: element.child('tds').value.toString(),
             iron: element.child('iron').value.toString(),
-            ammonia: element.child('ammonia').value.toString(),
-            nitrate: element.child('nitrate').value.toString(),
-            phosphate: element.child('phosphate').value.toString(),
-            resCl: element.child('resCl').value.toString(),
-            waterlvl: element.child('waterlvl').value.toString(),
+            coliforms: element.child('coliforms').value.toString(),
             remark: element.child('remark').value.toString(),
             image: element.child('image').value.toString(),
             isApproved: element.child('isApproved').value.toString(),
