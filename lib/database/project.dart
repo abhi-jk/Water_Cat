@@ -14,7 +14,6 @@ class Project {
   final String particular;
   final String date;
   final String location;
-  final String observation;
   final String pH;
   final String alkaline;
   final String hardness;
@@ -34,7 +33,6 @@ class Project {
     required this.particular,
     required this.date,
     required this.location,
-    required this.observation,
     required this.pH,
     required this.alkaline,
     required this.hardness,
@@ -56,7 +54,6 @@ Future<void> addNewProject(
     required String particular,
     required String date,
     required String location,
-    required String observation,
     required String pH,
     required String alkaline,
     required String hardness,
@@ -112,7 +109,6 @@ Future<void> addNewProject(
           'particular': particular,
           'date': date,
           'location': location,
-          'observation': observation,
           'pH': pH,
           'alkaline': alkaline,
           'hardness': hardness,
@@ -170,7 +166,6 @@ Future<List<Project>> getUnapprovedProjects() async {
             particular: element.child('particular').value.toString(),
             date: element.child('date').value.toString(),
             location: element.child('location').value.toString(),
-            observation: element.child('observation').value.toString(),
             pH: element.child('pH').value.toString(),
             alkaline: element.child('alkaline').value.toString(),
             hardness: element.child('hardness').value.toString(),

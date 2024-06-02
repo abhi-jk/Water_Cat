@@ -56,10 +56,6 @@ class _SubmittedProjectsPageState extends State<SubmittedProjectsPage> {
                                 ),
                                 ListTile(
                                   title: Text(
-                                      'Observation: ${snapshot.data![index].observation}'),
-                                ),
-                                ListTile(
-                                  title: Text(
                                       'Particular of Sample: ${snapshot.data![index].particular}'),
                                 ),
                                 ListTile(

@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
         '/adminrainfall': (context) => AdminRainfallPage(),
         '/adminalert': (context) => const AdminAlert(),
         '/clientalert': (context) => ViewAlert(),
-        '/testRresult': (context) =>  TableWidget(),
+        '/testRresult': (context) => TableWidget(),
       },
       initialRoute: '/splash',
     );

@@ -117,7 +117,7 @@ class _ProjectsSubmittedState extends State<ProjectsSubmitted> {
                       'Total Coliforms',
                       '---',
                       projectData['Coliforms'].toString(),
-                      '---'
+                      'Shall not be present'
                     ],
                   ],
                 ),

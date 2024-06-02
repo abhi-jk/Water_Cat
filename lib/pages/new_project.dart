@@ -17,7 +17,6 @@ class _NewProjectPageState extends State<NewProjectPage> {
   final _nameController = TextEditingController();
   final _sampleidController = TextEditingController();
   final _locationController = TextEditingController();
-  final _observationController = TextEditingController();
   final _pHController = TextEditingController();
   final _alkalineController = TextEditingController();
   final _hardnessController = TextEditingController();
@@ -39,7 +38,6 @@ class _NewProjectPageState extends State<NewProjectPage> {
       String name = _nameController.text;
       String sampleId = _sampleidController.text;
       String location = _locationController.text;
-      String observation = _observationController.text;
       String pH = _pHController.text;
       String alkaline = _alkalineController.text;
       String hardness = _hardnessController.text;
@@ -61,7 +59,6 @@ class _NewProjectPageState extends State<NewProjectPage> {
         particular: particular,
         date: date,
         location: location,
-        observation: observation,
         pH: pH,
         alkaline: alkaline,
         hardness: hardness,
@@ -161,7 +158,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                         },
                       ),
                       const SizedBox(height: 20),
-                     //select date from date picker
+                      //select date from date picker
                       TextFormField(
                         controller: _dateController,
                         decoration: InputDecoration(
@@ -178,7 +175,8 @@ class _NewProjectPageState extends State<NewProjectPage> {
                             lastDate: DateTime(2101),
                           );
                           if (picked != null) {
-                            _dateController.text = picked.toString().split(' ')[0];
+                            _dateController.text =
+                                picked.toString().split(' ')[0];
                           }
                         },
                         validator: (value) {
@@ -188,7 +186,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                           return null;
                         },
                       ),
-                     
+
                       const SizedBox(height: 20),
                       TextFormField(
                         controller: _locationController,
@@ -201,23 +199,6 @@ class _NewProjectPageState extends State<NewProjectPage> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your location';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        controller: _observationController,
-                        decoration: InputDecoration(
-                          labelText:
-                              'General Observation (colour,tubidity,odour)',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your observation';
                           }
                           return null;
                         },
@@ -396,15 +377,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
                               MaterialStateProperty.all(const Size(250, 50)),
                         ),
                         onPressed: () async {
-                          if (filename == '') {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Please upload an image'),
-                              ),
-                            );
-                          }
-                          if (_formKey.currentState!.validate() &&
-                              filename != '') {
+                          if (_formKey.currentState!.validate()) {
                             await _submit(context).whenComplete(() {
                               Navigator.pushReplacement(
                                 context,
@@ -412,23 +385,22 @@ class _NewProjectPageState extends State<NewProjectPage> {
                                     builder: (context) => ResultsPage(
                                           project: Project(
                                             projectName: _nameController.text,
-                                            sampleid:
-                                                _sampleidController.text,
+                                            sampleid: _sampleidController.text,
                                             sampleDesc: _descController.text,
-                                            particular: _particularController.text,
+                                            particular:
+                                                _particularController.text,
                                             date: _dateController.text,
                                             location: _locationController.text,
-                                            observation:
-                                                _observationController.text,
                                             pH: _pHController.text,
                                             alkaline: _alkalineController.text,
                                             hardness: _hardnessController.text,
                                             chloride: _chlorideController.text,
                                             tds: _tdsController.text,
                                             iron: _ironController.text,
-                                            coliforms: _coliformsController.text,
+                                            coliforms:
+                                                _coliformsController.text,
                                             remark: _remarkController.text,
-                                            image: imagefile!.path,
+                                            image: imagefile?.path ?? '',
                                             auther: currentUser!.uid,
                                             isApproved: 'false',
                                           ),
