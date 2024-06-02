@@ -30,17 +30,6 @@ class _ProjectsSubmittedState extends State<ProjectsSubmitted> {
   Future<List<int>> generatePdf(Map<String, dynamic> projectData) async {
     final pdf = pw.Document();
 
-    final imageUrl = projectData['image'] as String;
-    final response = await http.get(Uri.parse(imageUrl));
-    final imageTempDir = await getTemporaryDirectory();
-    final imageTempPath = imageTempDir.path + '/tempImage.jpg';
-    File imageTempFile = File(imageTempPath);
-    await imageTempFile.writeAsBytes(response.bodyBytes);
-
-    final image = pw.MemoryImage(
-      await imageTempFile.readAsBytes(),
-    );
-
     pdf.addPage(
       pw.Page(
         build: (context) {
@@ -51,29 +40,101 @@ class _ProjectsSubmittedState extends State<ProjectsSubmitted> {
               children: [
                 pw.Center(
                   child: pw.Text(
-                    'Project Report',
+                    'Water Quality Test Report',
                     style: pw.TextStyle(
                         fontSize: 30, fontWeight: pw.FontWeight.bold),
                   ),
                 ),
                 pw.SizedBox(height: 20),
-                pw.Center(
-                  child: pw.Image(image, width: 250, height: 250),
+                pw.Table.fromTextArray(
+                  context: context,
+                  data: <List<String>>[
+                    <String>[
+                      'Date of Analysis',
+                      'Particular of the Sample',
+                      'Location',
+                      'Sample ID',
+                      'Sample Description'
+                    ],
+                    [
+                      projectData['Date of Analysis'],
+                      projectData['Particular of Sample'],
+                      projectData['Location'],
+                      projectData['Sample ID'],
+                      projectData['Sample Description'],
+                    ]
+                  ],
                 ),
                 pw.SizedBox(height: 20),
-                ...projectData.entries.map((entry) {
-                  if (entry.key == 'image')
-                    return pw.SizedBox
-                        .shrink(); // Don't display the image URL in the text
-                  return pw.Padding(
-                    padding: pw.EdgeInsets.only(bottom: 5.0),
-                    child: pw.Text(
-                      '${entry.key}: ${entry.value}',
-                      style: pw.TextStyle(
-                          fontSize: 20, fontWeight: pw.FontWeight.bold),
-                    ),
-                  );
-                }).toList(),
+                pw.Table.fromTextArray(
+                  context: context,
+                  data: <List<String>>[
+                    <String>[
+                      'Sl No.',
+                      'Parameter',
+                      'Unit',
+                      'Result',
+                      'Acceptable Limit'
+                    ],
+                    [
+                      '1',
+                      'pH Value',
+                      '---',
+                      projectData['pH'].toString(),
+                      '6.5-8.5'
+                    ],
+                    [
+                      '2',
+                      'Total Dissolved Solids',
+                      'mg/l',
+                      projectData['TDS'].toString(),
+                      '500'
+                    ],
+                    [
+                      '3',
+                      'Total Alkalinity',
+                      'mg/l',
+                      projectData['Alkaline'].toString(),
+                      '200'
+                    ],
+                    [
+                      '4',
+                      'Total Hardness',
+                      'mg/l',
+                      projectData['Hardness'].toString(),
+                      '200'
+                    ],
+                    [
+                      '5',
+                      'Chloride',
+                      'mg/l',
+                      projectData['Chloride'].toString(),
+                      '250'
+                    ],
+                    ['6', 'Iron', 'mg/l', projectData['Iron'].toString(), '1'],
+                    [
+                      '7',
+                      'Total Coliforms',
+                      '---',
+                      projectData['Coliforms'].toString(),
+                      '---'
+                    ],
+                  ],
+                ),
+                pw.Table.fromTextArray(
+                  context: context,
+                  cellAlignments: {0: pw.Alignment.centerLeft},
+                  data: <List<String>>[
+                    ['Remarks: ${projectData['Remark']}'],
+                  ],
+                ),
+                pw.SizedBox(height: 60),
+                pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.end,
+                  children: [
+                    pw.Text('Authorised Signature'),
+                  ],
+                ),
               ],
             ),
           );
@@ -86,24 +147,21 @@ class _ProjectsSubmittedState extends State<ProjectsSubmitted> {
 
   Map<String, String> labels = {
     'isApproved': 'Approval Status',
+    'date': 'Date of Analysis',
+    'sampleid': 'Sample ID',
+    'particular': 'Particular of Sample',
+    'sampleDesc': 'Sample Description',
     'projectName': 'Project Name',
     'location': 'Location',
-    'sampleDetails': 'Sample Details',
-    'observation': 'Observation',
     'pH': 'pH',
     'alkaline': 'Alkaline',
     'hardness': 'Hardness',
     'chloride': 'Chloride',
     'tds': 'TDS',
     'iron': 'Iron',
-    'ammonia': 'Ammonia',
-    'nitrate': 'Nitrate',
-    'phosphate': 'Phosphate',
-    'resCl': 'Residual Chlorine',
-    'waterlvl': 'Water Level',
+    'coliforms': 'Coliforms',
     'remark': 'Remark',
-    'image': 'Image',
-    'auther': 'Auther',
+    'author': 'Author',
   };
 
   @override
@@ -174,11 +232,6 @@ class _ProjectsSubmittedState extends State<ProjectsSubmitted> {
                                             'Approval Status': 'Approved',
                                             'Alkaline': projects.values
                                                 .elementAt(index)['alkaline'],
-                                            'Ammonia': projects.values
-                                                .elementAt(index)['ammonia'],
-                                            'image': projects.values
-                                                    .elementAt(index)['image']
-                                                as String,
                                             'Chloride': projects.values
                                                 .elementAt(index)['chloride'],
                                             'Hardness': projects.values
@@ -187,26 +240,24 @@ class _ProjectsSubmittedState extends State<ProjectsSubmitted> {
                                                 .elementAt(index)['iron'],
                                             'Location': projects.values
                                                 .elementAt(index)['location'],
-                                            'Nitrate': projects.values
-                                                .elementAt(index)['nitrate'],
                                             'pH': projects.values
                                                 .elementAt(index)['pH'],
-                                            'Phosphate': projects.values
-                                                .elementAt(index)['phosphate'],
-                                            'Observation': projects.values
-                                                .elementAt(
-                                                    index)['observation'],
                                             'Remark': projects.values
                                                 .elementAt(index)['remark'],
-                                            'Residula Chlorine': projects.values
-                                                .elementAt(index)['resCl'],
                                             'TDS': projects.values
                                                 .elementAt(index)['tds'],
-                                            'Sample Details': projects.values
-                                                .elementAt(
-                                                    index)['sampleDetails'],
-                                            'Water Level': projects.values
-                                                .elementAt(index)['waterlvl'],
+                                            'Sample Description': projects
+                                                .values
+                                                .elementAt(index)['sampleDesc'],
+                                            'Particular of Sample': projects
+                                                .values
+                                                .elementAt(index)['particular'],
+                                            'Sample ID': projects.values
+                                                .elementAt(index)['sampleid'],
+                                            'Date of Analysis': projects.values
+                                                .elementAt(index)['date'],
+                                            'Coliforms': projects.values
+                                                .elementAt(index)['coliforms'],
                                           };
 
                                           showDialog(

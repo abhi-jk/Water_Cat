@@ -44,14 +44,28 @@ class _SubmittedProjectsPageState extends State<SubmittedProjectsPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
+                                      'Sample ID: ${snapshot.data![index].sampleid}'),
+                                  Text(
                                       'Location: ${snapshot.data![index].location}'),
-                                  Text(
-                                      'Sample Details: ${snapshot.data![index].sampleid}'),
-                                  Text(
-                                      'Observation: ${snapshot.data![index].observation}'),
                                 ],
                               ),
                               children: [
+                                ListTile(
+                                  title: Text(
+                                      'Date of Analysis: ${snapshot.data![index].date}'),
+                                ),
+                                ListTile(
+                                  title: Text(
+                                      'Observation: ${snapshot.data![index].observation}'),
+                                ),
+                                ListTile(
+                                  title: Text(
+                                      'Particular of Sample: ${snapshot.data![index].particular}'),
+                                ),
+                                ListTile(
+                                  title: Text(
+                                      'Sample Description: ${snapshot.data![index].sampleDesc}'),
+                                ),
                                 ListTile(
                                   title:
                                       Text('pH: ${snapshot.data![index].pH}'),
@@ -79,6 +93,10 @@ class _SubmittedProjectsPageState extends State<SubmittedProjectsPage> {
                                 ListTile(
                                   title: Text(
                                       'Remark: ${snapshot.data![index].remark}'),
+                                ),
+                                ListTile(
+                                  title: Text(
+                                      'Coliforms: ${snapshot.data![index].coliforms}'),
                                 ),
                                 Image.network(snapshot.data![index].image),
                                 SizedBox(
