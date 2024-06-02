@@ -26,6 +26,7 @@ import 'package:cwrdm/pages/queryPage.dart';
 import 'package:cwrdm/pages/rainfall.dart';
 import 'package:cwrdm/pages/report_biodiversity.dart';
 import 'package:cwrdm/pages/report_issue.dart';
+import 'package:cwrdm/pages/result_table.dart';
 import 'package:cwrdm/pages/submitted_projects.dart';
 import 'package:cwrdm/splashScreen.dart';
 import 'package:flutter/material.dart';
@@ -52,8 +53,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Montserrat',
         textTheme: const TextTheme(
-          bodyText1: TextStyle(fontFamily: 'Montserrat'),
-          bodyText2: TextStyle(fontFamily: 'Montserrat'),
+          bodyMedium: TextStyle(fontFamily: 'Montserrat'),
+          // bodyText1: TextStyle(fontFamily: 'Montserrat'),
+          // bodyText2: TextStyle(fontFamily: 'Montserrat'),
         ),
       ),
       routes: {
@@ -87,6 +89,7 @@ class MyApp extends StatelessWidget {
         '/adminrainfall': (context) => AdminRainfallPage(),
         '/adminalert': (context) => const AdminAlert(),
         '/clientalert': (context) => ViewAlert(),
+        '/testRresult': (context) =>  TableWidget(),
       },
       initialRoute: '/splash',
     );

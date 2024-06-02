@@ -96,7 +96,7 @@ class AdminPage extends StatelessWidget {
                 Navigator.pushNamed(context, '/admingroundwater');
               },
             ),
-             ListTile(
+            ListTile(
               leading: Icon(Icons.notifications_rounded),
               title: Text('Send Alerts'),
               onTap: () {
@@ -176,6 +176,7 @@ class AdminPage extends StatelessWidget {
                                         projectData.entries.map((dataEntry) {
                                       String label = labels[dataEntry.key] ??
                                           dataEntry.key;
+
                                       if (dataEntry.key == 'image') {
                                         return Padding(
                                           padding: const EdgeInsets.all(8.0),
@@ -183,12 +184,19 @@ class AdminPage extends StatelessWidget {
                                               dataEntry.value.toString()),
                                         );
                                       } else {
-                                        return ListTile(
-                                          title: Text('$label:',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold)),
-                                          subtitle: Text('${dataEntry.value}'),
-                                        );
+                                        if (dataEntry.key == 'auther') {
+                                          //skip the auther
+                                          return Container();
+                                        } else {
+                                          return ListTile(
+                                            title: Text('$label:',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                            subtitle:
+                                                Text('${dataEntry.value}'),
+                                          );
+                                        }
                                       }
                                     }).toList(),
                                   );

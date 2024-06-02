@@ -49,7 +49,9 @@ class _NewProjectPageState extends State<NewProjectPage> {
       String remark = _remarkController.text;
       String sampleDesc = _descController.text;
       String particular = _particularController.text;
-      String date = _dateController.text;
+      //select only date from date time
+
+      String date = _dateController.text.split(' ')[0];
       String coliforms = _coliformsController.text;
 
       await addNewProject(
@@ -159,22 +161,34 @@ class _NewProjectPageState extends State<NewProjectPage> {
                         },
                       ),
                       const SizedBox(height: 20),
+                     //select date from date picker
                       TextFormField(
                         controller: _dateController,
-                        keyboardType: TextInputType.datetime,
                         decoration: InputDecoration(
-                          labelText: 'Date of Analysis',
+                          labelText: 'Date of Collection',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                         ),
+                        onTap: () async {
+                          final DateTime? picked = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2015, 8),
+                            lastDate: DateTime(2101),
+                          );
+                          if (picked != null) {
+                            _dateController.text = picked.toString().split(' ')[0];
+                          }
+                        },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter the date of analysis';
+                            return 'Please enter the date';
                           }
                           return null;
                         },
                       ),
+                     
                       const SizedBox(height: 20),
                       TextFormField(
                         controller: _locationController,
