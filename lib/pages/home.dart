@@ -22,9 +22,7 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             UserAccountsDrawerHeader(
-              onDetailsPressed: () {
-                Navigator.pushNamed(context, '/testRresult');
-              },
+              
               accountName: Text('Hi, ${user?.displayName ?? 'User Name'}'),
               accountEmail: Text(user?.email ?? 'user@example.com'),
               currentAccountPicture: CircleAvatar(

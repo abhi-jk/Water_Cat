@@ -68,7 +68,7 @@ class _NewProjectPageState extends State<NewProjectPage> {
         coliforms: coliforms,
         remark: remark,
         context: context,
-        file: File(imagefile!.path),
+        file: imagefile!=null?File(imagefile!.path):null,
       );
       // print(imagefile!.path);
     }

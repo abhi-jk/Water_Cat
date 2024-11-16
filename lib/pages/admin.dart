@@ -178,6 +178,9 @@ class AdminPage extends StatelessWidget {
                                           dataEntry.key;
 
                                       if (dataEntry.key == 'image') {
+                                        if (dataEntry.value == null || dataEntry.value == '') {
+                                          return Text("No Image");
+                                        }
                                         return Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Image.network(

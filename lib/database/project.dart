@@ -62,7 +62,7 @@ Future<void> addNewProject(
     required String iron,
     required String coliforms,
     required String remark,
-    required File file,
+    File? file,
     required BuildContext context}) async {
   //show loading dialog
   showDialog(
@@ -90,16 +90,27 @@ Future<void> addNewProject(
         ),
       );
     } else {
+      String? url;
       //upload image to firebase cloud
-      final firestoreRef = FirebaseStorage.instance
+      if (file != null)
+      {final firestoreRef = FirebaseStorage.instance
           .ref('projects/${currentUser!.uid}/$projectName/image.jpg');
 
       final uploadTask = await firestoreRef.putFile(
         file,
       );
-
       if (uploadTask.state == TaskState.success) {
-        final url = await firestoreRef.getDownloadURL();
+         url= await firestoreRef.getDownloadURL();}
+      
+       else {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Error uploading image'),
+          ),
+        );
+      }
+      }
         await ref.child(projectName).set({
           'projectName': projectName,
           'auther': currentUser!.uid,
@@ -117,7 +128,7 @@ Future<void> addNewProject(
           'iron': iron,
           'coliforms': coliforms,
           'remark': remark,
-          'image': url,
+          'image': url??'',
         }).whenComplete(() {
           Navigator.pop(context);
           // ScaffoldMessenger.of(context).showSnackBar(
@@ -134,16 +145,9 @@ Future<void> addNewProject(
             ),
           );
         });
-      } else {
-        Navigator.pop(context);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Error uploading image'),
-          ),
-        );
       }
     }
-  });
+  );
 }
 
 //get unapproved projects

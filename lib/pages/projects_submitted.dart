@@ -322,6 +322,14 @@ class _ProjectsSubmittedState extends State<ProjectsSubmitted> {
                               String label =
                                   labels[dataEntry.key] ?? dataEntry.key;
                               if (dataEntry.key == 'image') {
+                                if (dataEntry.value == null || dataEntry.value == '') {
+                                  return ListTile(
+                                    title: Text('$label:',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                    subtitle: Text('No image uploaded'),
+                                  );
+                                }
                                 return Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child:

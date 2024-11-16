@@ -94,6 +94,7 @@ class _SubmittedProjectsPageState extends State<SubmittedProjectsPage> {
                                   title: Text(
                                       'Coliforms: ${snapshot.data![index].coliforms}'),
                                 ),
+                                if(snapshot.data![index].image!='')
                                 Image.network(snapshot.data![index].image),
                                 SizedBox(
                                   height: 10,
